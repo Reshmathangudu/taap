@@ -1,0 +1,14 @@
+.jira-impact { min-width: 0; font-size: 14px; line-height: 1.5; }
+.jira-impact header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.jira-impact article { border: 1px solid #dce2ec; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+.jira-impact h4 { margin-top: 10px; }
+.jira-impact__text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.jira-impact blockquote { margin: 8px 0 18px; padding: 8px 12px; border-left: 3px solid #dce2ec; color: #526277; }
+.jira-impact details { margin-top: 16px; }
+.jira-impact summary { cursor: pointer; }
+.jira-impact a { color: #2759b5; }
+.jira-impact [role="alert"] { background: #fff5df; padding: 12px; border-radius: 6px; }
+.jira-impact__table { overflow-x: auto; }
+.jira-impact table { width: 100%; border-collapse: collapse; text-align: left; }
+.jira-impact th, .jira-impact td { padding: 8px; border-bottom: 1px solid #dce2ec; }
+.back-details { padding: 6px 8px; border: 1px solid #dce2ec; background: #456d98; color: #fff;cursor: pointer; font-size: 12px !important;}

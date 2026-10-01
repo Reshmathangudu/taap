@@ -1,0 +1,44 @@
+.sdet-when {
+  display: grid;
+  gap: 8px;
+}
+
+.sdet-list__button {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sdet-list__env {
+  color: #6b7684;
+  font-size: 13px;
+}
+
+.sdet-list--compact .sdet-list__row {
+  padding: 10px 0;
+}
+
+.sdet-list--compact .sdet-list__meta {
+  display: block;
+  margin-top: 4px;
+}
+
+.sdet-new-schedule {
+  margin-top: 14px;
+}
+
+.sdet-runs-table {
+  min-width: 1240px;
+}
+
+.sdet-run-id {
+  color: #4a6fa5;
+}
+
+.sdet-hidden-panel {
+  display: none;
+}

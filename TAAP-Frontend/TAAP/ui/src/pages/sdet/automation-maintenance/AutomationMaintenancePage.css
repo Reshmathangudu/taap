@@ -1,0 +1,37 @@
+.sdet-maintenance-table {
+  min-width: 1180px;
+  table-layout: auto;
+}
+
+.sdet-maintenance-table th:nth-child(3),
+.sdet-maintenance-table td:nth-child(3) {
+  white-space: nowrap;
+}
+
+.sdet-maintenance-table th:nth-child(10),
+.sdet-maintenance-table td:nth-child(10) {
+  min-width: 150px;
+}
+
+.sdet-item-id {
+  color: #4a6fa5;
+}
+
+.sdet-source-ref {
+  color: #4a6fa5;
+}
+
+.sdet-change {
+  min-width: 260px;
+  max-width: 360px;
+  line-height: 1.45;
+}
+
+.sdet-updated {
+  white-space: nowrap;
+  color: #4b5563;
+}
+
+.sdet-form-gap {
+  margin-top: 18px;
+}

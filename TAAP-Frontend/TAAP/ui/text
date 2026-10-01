@@ -1,0 +1,3 @@
+First go through the in src folder and using the same approach and technology generate code for below requirement: 
+
+make this design in react components for Aboutus screen and add Aboutus sidebar menu link with JIRA data, I have already added JIRA access in the .env file and remaining shoulb be create in dummy data. And do not change any other files only create new files and folder for the test design.

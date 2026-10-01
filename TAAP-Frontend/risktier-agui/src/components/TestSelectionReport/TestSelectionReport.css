@@ -1,0 +1,121 @@
+/*
+  Scoped under .rta-ts so this component's styles never leak into, or get
+  overridden by, ExclusionSignoffQueue (.rta-gv) or ExecutionAuditLog
+  (.rta-al) when Spider mounts all three on the same page. A production
+  build could go further with CSS Modules or a Shadow DOM boundary; class
+  scoping is the minimum needed for three plain-CSS panels to coexist.
+
+  .rta-ts establishes a CSS container-query context (container-type:
+  inline-size) so the content inside — .rta-ts-inner and its children —
+  can respond to *this panel's own width*, not the browser viewport. That
+  matters because Spider decides how wide a slot this panel gets (a full
+  page, a third of a three-up layout, a narrow sidebar), and that can
+  change independently of the screen size. A plain @media breakpoint would
+  only fire if the whole browser window got narrow; @container fires
+  whenever this specific panel does, which is the actual thing we care
+  about. (A container element can't respond to a query on itself — only
+  its descendants — hence the separate .rta-ts-inner wrapper.)
+*/
+.rta-ts {
+  --bg: #F7F8FA; --card: #FFFFFF; --border: #E4E7EC; --border-strong: #D0D5DD;
+  --text: #101828; --text-2: #667085; --text-3: #98A2B3;
+  --accent: #2563EB; --accent-bg: #EFF4FF;
+  --danger: #D92D20; --danger-bg: #FEE4E2; --danger-strong: #F97066;
+  --warn: #B54708; --warn-bg: #FEF0C7; --warn-strong: #F79009;
+  --success: #079455; --success-bg: #DCFAE6; --success-strong: #75E0A7;
+  --purple: #6941C6; --purple-bg: #F4EBFF;
+  --radius: 8px;
+  container-type: inline-size;
+  background: var(--bg);
+}
+.rta-ts *{ box-sizing: border-box; }
+.rta-ts-inner{
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px; line-height: 1.5; padding: 22px 26px; max-width: 900px; margin: 0 auto;
+}
+.rta-ts-inner .rta-ts-badgehead{ display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.rta-ts-inner .rta-ts-badgehead .dot{ width:9px; height:9px; border-radius:50%; background:var(--accent); }
+.rta-ts-inner .rta-ts-badgehead span{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-2); font-weight:600; }
+.rta-ts-inner .rta-ts-live{ background:var(--accent-bg); color:var(--accent); padding:2px 8px; border-radius:999px; text-transform:none; letter-spacing:0; font-weight:600; }
+
+/* Live-refresh cue: fired for ~1.4s when Agent 5 finishing triggers a
+   refetch (see TestSelectionReport.tsx / runStatusBus.ts), so the panel
+   visibly proves it just synced rather than silently swapping data. */
+.rta-ts.rta-flash{ animation: rta-flash-bg 1.4s ease-out; }
+@keyframes rta-flash-bg{ 0%{ background-color: var(--accent-bg); } 100%{ background-color: var(--bg); } }
+.rta-ts-inner h1{ font-size:20px; font-weight:600; margin:0 0 4px; }
+.rta-ts-inner .rta-ts-subtitle{ font-size:13px; color:var(--text-2); margin:0 0 20px; }
+.rta-ts-inner .rta-ts-toolbar{ display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; align-items:center; }
+.rta-ts-inner .rta-ts-search{ flex:1; min-width:200px; padding:8px 12px; border:1px solid var(--border-strong); border-radius:var(--radius); font-size:13px; font-family:inherit; background:var(--card); }
+.rta-ts-inner .rta-ts-search:focus{ outline:2px solid var(--accent); outline-offset:-1px; border-color:var(--accent); }
+.rta-ts-inner .rta-ts-chip{ padding:6px 12px; border-radius:999px; border:1px solid var(--border-strong); background:var(--card); font-size:12px; cursor:pointer; color:var(--text-2); font-family:inherit; white-space:nowrap; }
+.rta-ts-inner .rta-ts-chip.active{ background:var(--text); color:#fff; border-color:var(--text); }
+.rta-ts-inner table{ width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; table-layout:fixed; }
+.rta-ts-inner thead th{ text-align:left; font-size:11px; color:var(--text-2); text-transform:uppercase; letter-spacing:.03em; padding:9px 12px; border-bottom:1px solid var(--border); background:var(--bg); }
+.rta-ts-inner tbody tr{ cursor:pointer; border-bottom:1px solid var(--border); }
+.rta-ts-inner tbody tr:last-child{ border-bottom:none; }
+.rta-ts-inner tbody tr:hover{ background:var(--bg); }
+.rta-ts-inner tbody td{ padding:10px 12px; font-size:13px; vertical-align:middle; overflow-wrap:break-word; }
+.rta-ts-inner .badge{ display:inline-block; padding:2px 9px; border-radius:6px; font-size:11px; font-weight:600; white-space:nowrap; }
+.rta-ts-inner .badge.must{ background:var(--danger-bg); color:var(--danger); }
+.rta-ts-inner .badge.rec{ background:var(--warn-bg); color:var(--warn); }
+.rta-ts-inner .badge.opt{ background:#F1F2F4; color:var(--text-2); }
+.rta-ts-inner .badge.exclude{ background:var(--success-bg); color:var(--success); }
+.rta-ts-inner .badge.tier1{ background:var(--purple-bg); color:var(--purple); }
+.rta-ts-inner .badge.tier2{ background:var(--warn-bg); color:var(--warn); }
+.rta-ts-inner .badge.tier3{ background:var(--accent-bg); color:var(--accent); }
+.rta-ts-inner .badge.tier4{ background:#F1F2F4; color:var(--text-2); }
+.rta-ts-inner .badge.flag{ background:var(--accent-bg); color:var(--accent); margin-right:4px; margin-bottom:2px; }
+.rta-ts-inner .badge.risk-low{ background:var(--success-bg); color:var(--success); }
+.rta-ts-inner .badge.risk-medium{ background:var(--warn-bg); color:var(--warn); }
+.rta-ts-inner .badge.risk-high{ background:var(--danger-bg); color:var(--danger); }
+.rta-ts-inner .empty-row{ padding:26px 14px; text-align:center; color:var(--text-3); font-size:13px; }
+.rta-ts-inner .footer-note{ font-size:11px; color:var(--text-3); margin-top:10px; display:flex; justify-content:space-between; gap:12px; }
+.rta-ts-inner .btn{ padding:8px 14px; border-radius:var(--radius); border:1px solid var(--border-strong); background:var(--card); font-size:13px; cursor:pointer; font-family:inherit; color:var(--text); }
+.rta-ts-inner .btn:hover{ background:var(--bg); }
+.rta-ts-inner .btn.primary{ background:var(--accent); color:#fff; border-color:var(--accent); }
+.rta-ts-inner .btn.primary:hover{ background:#1d4ed8; }
+.rta-ts-inner .btn.sm{ padding:5px 10px; font-size:12px; }
+.rta-ts-inner .panel{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:16px; }
+.rta-ts-inner .panel h3{ font-size:13px; font-weight:600; margin:0 0 10px; }
+.rta-ts-inner .panel h3 .muted{ font-weight:400; color:var(--text-2); font-size:12px; }
+.rta-ts-inner .detail-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px; gap:12px; flex-wrap:wrap; }
+.rta-ts-inner .detail-score{ font-size:26px; font-weight:700; }
+.rta-ts-inner .detail-score small{ font-size:12px; color:var(--text-2); font-weight:400; }
+.rta-ts-inner .factor{ margin-bottom:12px; }
+.rta-ts-inner .factor-row{ display:flex; justify-content:space-between; font-size:12px; color:var(--text-2); margin-bottom:4px; gap:8px; }
+.rta-ts-inner .factor-track{ background:var(--bg); border-radius:4px; height:6px; overflow:hidden; }
+.rta-ts-inner .factor-fill{ height:100%; border-radius:4px; }
+.rta-ts-inner .rationale-box{ background:var(--accent-bg); border-radius:var(--radius); padding:10px 12px; font-size:12px; color:var(--accent); margin-top:6px; }
+.rta-ts-inner .rationale-box code{ background:rgba(0,0,0,.06); padding:1px 5px; border-radius:4px; font-size:11px; }
+.rta-ts-inner .stat-row{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:10px 0; font-size:12px; }
+.rta-ts-inner .stat-row div span{ display:block; color:var(--text-2); font-size:11px; margin-bottom:2px; }
+.rta-ts-inner .signoff-row{ display:flex; justify-content:space-between; align-items:center; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); gap:8px; flex-wrap:wrap; }
+
+/* Panel narrower than ~720px (e.g. mounted as one of several side-by-side
+   AGUI panels — three panels on one page commonly leaves each around
+   500-650px even on a wide screen): drop the table grid entirely in favor
+   of stacked cards. Below this width, 5 columns can't all stay legible at
+   once — the "Test case" column in particular needs more room than a
+   fifth of the row — no matter how the column widths are proportioned. */
+@container (max-width: 720px) {
+  .rta-ts-inner{ padding: 16px; }
+  .rta-ts-inner .stat-row{ grid-template-columns: 1fr; }
+  .rta-ts-inner table, .rta-ts-inner tbody, .rta-ts-inner tr, .rta-ts-inner td{ display:block; width:100%; }
+  .rta-ts-inner thead{ display:none; }
+  .rta-ts-inner tbody tr{ border:1px solid var(--border); border-radius:10px; margin-bottom:10px; padding:10px 12px; }
+  .rta-ts-inner tbody tr:last-child{ margin-bottom:0; }
+  .rta-ts-inner tbody td{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:5px 0; border-bottom:none; text-align:right;
+  }
+  .rta-ts-inner tbody td[data-label]::before{
+    content: attr(data-label);
+    font-size:11px; color:var(--text-2); text-transform:uppercase; letter-spacing:.03em;
+    text-align:left; flex-shrink:0;
+  }
+  .rta-ts-inner tbody td[data-label="Test case"]{ font-weight:600; text-align:left; flex-direction:column; align-items:flex-start; gap:2px; }
+  .rta-ts-inner tbody td[data-label="Test case"]::before{ margin-bottom:2px; }
+  .rta-ts-inner .empty-row{ text-align:left; }
+}

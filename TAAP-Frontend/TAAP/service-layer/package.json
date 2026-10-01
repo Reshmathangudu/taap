@@ -1,0 +1,16 @@
+{
+  "name": "@taap/service-layer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "scripts": {
+    "fetch:jira": "node ./src/jira/fetch-snapshot.js",
+    "start": "node ./src/server.js"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./jira": "./src/jira/rest-client.js",
+    "./server": "./src/server.js"
+  }
+}

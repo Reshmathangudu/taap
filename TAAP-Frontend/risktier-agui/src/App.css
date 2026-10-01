@@ -1,0 +1,67 @@
+.dev-shell {
+  min-height: 100vh;
+  background: #EEF0F3;
+}
+.dev-shell-header {
+  background: #111827;
+  color: #fff;
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.dev-shell-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  opacity: .7;
+  margin-bottom: 10px;
+}
+.dev-shell-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.dev-shell-tab {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: transparent;
+  color: rgba(255,255,255,.75);
+  cursor: pointer;
+}
+.dev-shell-tab.active {
+  background: #fff;
+  color: #111827;
+  border-color: #fff;
+  font-weight: 600;
+}
+.dev-shell-tab:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+.dev-shell-main {
+  padding: 24px 0 48px;
+}
+/* .dev-shell-grid now wraps all four panels unconditionally (they stay
+   mounted across tab switches — see the comment in App.tsx) — the grid
+   layout itself only applies in "all four" mode via .multi. In single-tab
+   mode this is a plain unstyled block wrapper so each panel's own internal
+   max-width/centering (e.g. .rta-rc-inner) applies exactly as it did when
+   these were rendered unwrapped. */
+.dev-shell-grid.multi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  align-items: start;
+}
+.dev-shell-grid.multi > * {
+  max-width: none;
+  margin: 0;
+}

@@ -1,0 +1,187 @@
+.stp {
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #eef0f1;
+  padding: 20px 26px 60px;
+}
+
+.stp__title {
+  margin: 0 0 16px;
+  color: #10192a;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+.stp-agentbanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  border: 1px solid #e4e2f0;
+  border-left: 3px solid #6b5ce7;
+  border-radius: 2px;
+  background: #f9f8fe;
+  color: #2f3545;
+  padding: 13px 15px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.stp-agentbanner svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: #6b5ce7;
+}
+
+/* ---------- table ---------- */
+
+.stp-tablewrap {
+  border: 1px solid #e2e4e7;
+  border-radius: 2px;
+  background: #fff;
+  overflow-x: auto;
+}
+
+.stp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.stp-table th {
+  border-bottom: 1px solid #e6e8eb;
+  background: #fafbfc;
+  color: #9298a2;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 13px 18px;
+  white-space: nowrap;
+}
+
+.stp-table td {
+  border-bottom: 1px solid #f2f3f5;
+  color: #2f3845;
+  padding: 15px 18px;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.stp-table tr:last-child td { border-bottom: 0; }
+
+.stp-table tbody tr:hover { background: #fafbfc; }
+
+/* story cell: title over key */
+
+.stp-story { white-space: normal; min-width: 280px; }
+
+.stp-story__title {
+  display: block;
+  color: #10192a;
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.stp-story__key {
+  display: block;
+  color: #9298a2;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+/* planned cases */
+
+.stp-cases { color: #2f3845; }
+.stp-cases__sep { color: #c2c7ce; margin: 0 6px; }
+
+/* pills */
+
+.stp-pill {
+  display: inline-block;
+  border-radius: 3px;
+  padding: 4px 11px;
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.stp-pill--high { background: #fbe6e5; color: #b0453d; }
+.stp-pill--medium { background: #fbeed6; color: #8f6217; }
+.stp-pill--low { background: #e8f1ea; color: #4a7357; }
+.stp-pill--unset { background: #eceef0; color: #8b919b; }
+
+.stp-pill--ready { background: #e6f3ea; color: #2f7d4f; }
+.stp-pill--drafting { background: #eeebfa; color: #5b4bc4; }
+.stp-pill--done { background: #e9edf2; color: #4a5768; }
+.stp-pill--notready { background: #eceef0; color: #7b828d; }
+
+/* value Jira does not hold */
+
+.stp-missing { color: #b8bec6; cursor: help; }
+
+/* Placeholder cell — reads slightly lighter than a real Jira value so the
+   two are distinguishable without being distracting. */
+.stp-placeholder { color: #737b86; }
+
+/* ---------- totals ---------- */
+
+.stp-totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  border: 1px solid #e2e4e7;
+  border-top: 0;
+  background: #fafbfc;
+  padding: 14px 18px;
+  color: #7b828d;
+  font-size: 13px;
+}
+
+.stp-totals strong {
+  color: #10192a;
+  font-size: 14px;
+  font-weight: 800;
+  margin-right: 5px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- notes / states ---------- */
+
+.stp-note {
+  margin: 14px 0 0;
+  color: #7b828d;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.stp-note strong { color: #4a5361; }
+
+.stp-note code,
+.stp-error code {
+  background: #e7e9ec;
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 11.5px;
+}
+
+.stp-error {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  border: 1px solid #f0d0ce;
+  border-left: 3px solid #b0453d;
+  border-radius: 2px;
+  background: #fdf5f5;
+  color: #6f3b37;
+  padding: 16px 18px;
+  font-size: 13.5px;
+}
+
+.stp-error strong { color: #b0453d; }
+.stp-error__hint { color: #8a6460; font-size: 12.5px; }

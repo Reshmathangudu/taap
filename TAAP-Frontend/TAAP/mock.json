@@ -1,0 +1,672 @@
+{
+  "project": {
+    "id": "ANZ",
+    "name": "Australia and New Zealand Banking Group Limited",
+    "release": "Release 24.8",
+    "sprint": "Sprint 18",
+    "environment": "QA",
+    "generatedAt": "2026-09-17T14:20:00+05:30"
+  },
+  "summary": {
+    "epics": 5,
+    "userStories": 5,
+    "bugs": 5,
+    "openCriticalBugs": 1,
+    "readyForTestingStories": 2,
+    "automationCoveragePercent": 68,
+    "manualTestCoveragePercent": 82,
+    "testCases": 10
+  },
+  "epics": [
+    {
+      "id": "epic-001",
+      "key": "DCP-100",
+      "title": "Checkout Reliability Modernization",
+      "description": "Improve checkout stability across cart, payment, tax, discount, and order confirmation flows.",
+      "status": "In Progress",
+      "priority": "Critical",
+      "owner": "Ananya Sharma",
+      "businessValue": "Reduce order-drop failures during peak sale traffic.",
+      "targetRelease": "Release 24.8",
+      "progressPercent": 72,
+      "riskLevel": "High",
+      "tags": ["checkout", "payment", "reliability"],
+      "qualitySignals": {
+        "totalStories": 8,
+        "testedStories": 5,
+        "openBugs": 3,
+        "blockedItems": 1
+      }
+    },
+    {
+      "id": "epic-002",
+      "key": "DCP-101",
+      "title": "Accessible Shopping Experience",
+      "description": "Bring priority shopping journeys in line with WCAG accessibility expectations.",
+      "status": "In Progress",
+      "priority": "High",
+      "owner": "Priya Nair",
+      "businessValue": "Make cart, search, product details, and checkout usable with assistive technologies.",
+      "targetRelease": "Release 24.8",
+      "progressPercent": 58,
+      "riskLevel": "Medium",
+      "tags": ["accessibility", "wcag", "frontend"],
+      "qualitySignals": {
+        "totalStories": 6,
+        "testedStories": 3,
+        "openBugs": 1,
+        "blockedItems": 0
+      }
+    },
+    {
+      "id": "epic-003",
+      "key": "DCP-102",
+      "title": "Promotion and Loyalty Engine",
+      "description": "Support stackable discounts, loyalty wallet credits, coupon validation, and promotion auditability.",
+      "status": "Ready for QA",
+      "priority": "High",
+      "owner": "Rahul Menon",
+      "businessValue": "Increase campaign flexibility without increasing manual validation effort.",
+      "targetRelease": "Release 24.8",
+      "progressPercent": 81,
+      "riskLevel": "Medium",
+      "tags": ["promotion", "loyalty", "pricing"],
+      "qualitySignals": {
+        "totalStories": 7,
+        "testedStories": 6,
+        "openBugs": 1,
+        "blockedItems": 0
+      }
+    },
+    {
+      "id": "epic-004",
+      "key": "DCP-103",
+      "title": "Order Tracking and Notifications",
+      "description": "Improve shipment tracking, delivery estimates, customer notifications, and exception messaging.",
+      "status": "Planned",
+      "priority": "Medium",
+      "owner": "Meera Iyer",
+      "businessValue": "Reduce support contacts caused by unclear fulfillment status.",
+      "targetRelease": "Release 24.9",
+      "progressPercent": 24,
+      "riskLevel": "Low",
+      "tags": ["orders", "notifications", "fulfillment"],
+      "qualitySignals": {
+        "totalStories": 5,
+        "testedStories": 1,
+        "openBugs": 0,
+        "blockedItems": 0
+      }
+    },
+    {
+      "id": "epic-005",
+      "key": "DCP-104",
+      "title": "Search and Product Discovery",
+      "description": "Improve search relevance, filtering, sorting, empty states, and product recommendation behavior.",
+      "status": "In Progress",
+      "priority": "Medium",
+      "owner": "Vikram Rao",
+      "businessValue": "Improve product discovery and conversion from search-led sessions.",
+      "targetRelease": "Release 24.8",
+      "progressPercent": 47,
+      "riskLevel": "Medium",
+      "tags": ["search", "catalog", "recommendations"],
+      "qualitySignals": {
+        "totalStories": 6,
+        "testedStories": 2,
+        "openBugs": 1,
+        "blockedItems": 1
+      }
+    }
+  ],
+  "userStories": [
+    {
+      "id": "story-001",
+      "key": "DCP-458",
+      "epicKey": "DCP-100",
+      "title": "Apply valid promo code during checkout",
+      "description": "As a shopper, I want a valid promo code to update my checkout total before payment so that I can confirm the final payable amount.",
+      "status": "Ready for Testing",
+      "priority": "High",
+      "assignee": "Neha Gupta",
+      "reporter": "Rahul Menon",
+      "sprint": "Sprint 18",
+      "storyPoints": 5,
+      "testStatus": "Not Started",
+      "automationCandidate": true,
+      "acceptanceCriteria": [
+        "Valid promo code reduces the order total based on configured campaign rules.",
+        "Discount value is visible on cart, payment, and order review screens.",
+        "Expired or invalid promo code shows a clear validation message.",
+        "Promotion audit entry is created with campaign id and timestamp."
+      ],
+      "testCoverage": {
+        "manualCases": 6,
+        "automatedCases": 2,
+        "passed": 0,
+        "failed": 0,
+        "blocked": 0
+      },
+      "testCases": [
+        {
+          "id": "tc-001",
+          "key": "TC-1053",
+          "title": "Apply valid percentage promo code at checkout",
+          "type": "Functional",
+          "priority": "High",
+          "executionStatus": "Not Started",
+          "automationStatus": "Candidate",
+          "assignedTo": "Priya Nair",
+          "estimateMinutes": 25,
+          "lastRun": null,
+          "preconditions": [
+            "Shopper has an eligible product in cart",
+            "Promo code SAVE20 is active"
+          ],
+          "steps": [
+            "Open cart and proceed to checkout.",
+            "Enter promo code SAVE20.",
+            "Apply the code and review the order summary.",
+            "Continue to payment page."
+          ],
+          "expectedResult": "Discount is applied and shown consistently on cart, review, and payment screens."
+        },
+        {
+          "id": "tc-002",
+          "key": "TC-1054",
+          "title": "Reject expired promo code during checkout resume",
+          "type": "Regression",
+          "priority": "Critical",
+          "executionStatus": "Blocked by Bug",
+          "automationStatus": "Planned",
+          "assignedTo": "Priya Nair",
+          "estimateMinutes": 30,
+          "lastRun": {
+            "status": "Failed",
+            "date": "2026-09-17",
+            "build": "24.8.183",
+            "defectKey": "DCP-BUG-783"
+          },
+          "preconditions": [
+            "Cart session contains a previously applied promo code",
+            "Promo campaign is expired"
+          ],
+          "steps": [
+            "Resume checkout using the existing cart session.",
+            "Refresh the order summary.",
+            "Navigate to payment.",
+            "Verify discount and validation messaging."
+          ],
+          "expectedResult": "Expired promo code is removed and shopper sees a clear validation message."
+        }
+      ]
+    },
+    {
+      "id": "story-002",
+      "key": "DCP-461",
+      "epicKey": "DCP-101",
+      "title": "Announce cart total updates to screen readers",
+      "description": "As a keyboard and screen reader user, I want cart total updates announced immediately so that I understand price changes without visual cues.",
+      "status": "In QA",
+      "priority": "High",
+      "assignee": "Priya Nair",
+      "reporter": "Ananya Sharma",
+      "sprint": "Sprint 18",
+      "storyPoints": 3,
+      "testStatus": "Needs Review",
+      "automationCandidate": false,
+      "acceptanceCriteria": [
+        "Cart total update is announced through an ARIA live region.",
+        "Announcement contains subtotal, discount, tax, shipping, and final total.",
+        "Keyboard focus remains stable after quantity changes.",
+        "Behavior is verified on Chrome, Edge, and Firefox with supported screen readers."
+      ],
+      "testCoverage": {
+        "manualCases": 5,
+        "automatedCases": 0,
+        "passed": 3,
+        "failed": 1,
+        "blocked": 0
+      },
+      "testCases": [
+        {
+          "id": "tc-003",
+          "key": "TC-1091",
+          "title": "Announce cart quantity changes to screen reader",
+          "type": "Accessibility",
+          "priority": "High",
+          "executionStatus": "Needs Review",
+          "automationStatus": "Manual Only",
+          "assignedTo": "Priya Nair",
+          "estimateMinutes": 35,
+          "lastRun": {
+            "status": "Failed",
+            "date": "2026-09-16",
+            "build": "24.8.181",
+            "defectKey": "DCP-BUG-801"
+          },
+          "preconditions": [
+            "Screen reader is enabled",
+            "Cart has one product with quantity controls"
+          ],
+          "steps": [
+            "Focus the cart quantity control using keyboard.",
+            "Increase product quantity.",
+            "Wait for cart totals to refresh.",
+            "Listen for the live region announcement."
+          ],
+          "expectedResult": "Screen reader announces updated subtotal, discount, tax, shipping, and final total."
+        },
+        {
+          "id": "tc-004",
+          "key": "TC-1092",
+          "title": "Keep keyboard focus stable after cart update",
+          "type": "Accessibility",
+          "priority": "Medium",
+          "executionStatus": "Passed",
+          "automationStatus": "Manual Only",
+          "assignedTo": "Priya Nair",
+          "estimateMinutes": 20,
+          "lastRun": {
+            "status": "Passed",
+            "date": "2026-09-16",
+            "build": "24.8.184"
+          },
+          "preconditions": [
+            "Keyboard-only navigation is being used",
+            "Cart has an editable product quantity"
+          ],
+          "steps": [
+            "Tab to the quantity increase button.",
+            "Activate the button using keyboard.",
+            "Observe focus position after the cart total refreshes.",
+            "Tab to the next interactive control."
+          ],
+          "expectedResult": "Keyboard focus remains on the quantity control and tab order continues normally."
+        }
+      ]
+    },
+    {
+      "id": "story-003",
+      "key": "DCP-463",
+      "epicKey": "DCP-100",
+      "title": "Redeem gift card before card payment",
+      "description": "As a shopper, I want to redeem a gift card before entering card details so that I can pay only the remaining balance.",
+      "status": "Ready for Testing",
+      "priority": "Medium",
+      "assignee": "Ishaan Verma",
+      "reporter": "Meera Iyer",
+      "sprint": "Sprint 18",
+      "storyPoints": 5,
+      "testStatus": "Not Started",
+      "automationCandidate": true,
+      "acceptanceCriteria": [
+        "Gift card balance is validated before card payment form is displayed.",
+        "Remaining payable amount updates after successful gift card redemption.",
+        "Fully covered order skips card entry and proceeds to review.",
+        "Failed gift card validation does not clear cart state."
+      ],
+      "testCoverage": {
+        "manualCases": 7,
+        "automatedCases": 3,
+        "passed": 0,
+        "failed": 0,
+        "blocked": 0
+      },
+      "testCases": [
+        {
+          "id": "tc-005",
+          "key": "TC-1102",
+          "title": "Redeem gift card before card entry",
+          "type": "Functional",
+          "priority": "High",
+          "executionStatus": "Not Started",
+          "automationStatus": "Candidate",
+          "assignedTo": "Priya Nair",
+          "estimateMinutes": 30,
+          "lastRun": null,
+          "preconditions": [
+            "Signed-in shopper has active gift card balance",
+            "Cart contains an eligible product"
+          ],
+          "steps": [
+            "Proceed from cart to checkout.",
+            "Open payment step.",
+            "Apply available gift card balance.",
+            "Review remaining payable amount."
+          ],
+          "expectedResult": "Gift card can be redeemed before card details are entered and remaining amount updates."
+        },
+        {
+          "id": "tc-006",
+          "key": "TC-1103",
+          "title": "Skip card entry when gift card covers full order",
+          "type": "Functional",
+          "priority": "Medium",
+          "executionStatus": "Not Started",
+          "automationStatus": "Candidate",
+          "assignedTo": "Ishaan Verma",
+          "estimateMinutes": 25,
+          "lastRun": null,
+          "preconditions": [
+            "Gift card balance is greater than order total",
+            "Order item is gift-card eligible"
+          ],
+          "steps": [
+            "Proceed to checkout as a signed-in shopper.",
+            "Apply gift card balance.",
+            "Continue from payment step.",
+            "Place the order from review screen."
+          ],
+          "expectedResult": "Card entry is skipped and the order can be placed using gift card balance only."
+        }
+      ]
+    },
+    {
+      "id": "story-004",
+      "key": "DCP-472",
+      "epicKey": "DCP-104",
+      "title": "Filter search results by delivery availability",
+      "description": "As a shopper, I want to filter products by delivery availability so that I only see items that can arrive within my preferred window.",
+      "status": "Blocked",
+      "priority": "Medium",
+      "assignee": "Sonal Kapoor",
+      "reporter": "Vikram Rao",
+      "sprint": "Sprint 18",
+      "storyPoints": 8,
+      "testStatus": "Blocked",
+      "automationCandidate": true,
+      "blockerReason": "Catalog availability feed is intermittently missing delivery-zone data.",
+      "acceptanceCriteria": [
+        "Delivery filter shows available windows based on shopper postal code.",
+        "Unavailable products are excluded when filter is active.",
+        "Filter count updates after sorting or category changes.",
+        "Empty result state explains that no products match delivery availability."
+      ],
+      "testCoverage": {
+        "manualCases": 4,
+        "automatedCases": 1,
+        "passed": 0,
+        "failed": 0,
+        "blocked": 4
+      },
+      "testCases": [
+        {
+          "id": "tc-007",
+          "key": "TC-1140",
+          "title": "Filter products by tomorrow delivery availability",
+          "type": "Functional",
+          "priority": "Medium",
+          "executionStatus": "Blocked",
+          "automationStatus": "Planned",
+          "assignedTo": "Sonal Kapoor",
+          "estimateMinutes": 30,
+          "lastRun": {
+            "status": "Blocked",
+            "date": "2026-09-17",
+            "build": "24.8.182",
+            "defectKey": "DCP-BUG-812"
+          },
+          "preconditions": [
+            "Postal code is set to 560001",
+            "Availability service returns delivery-window data"
+          ],
+          "steps": [
+            "Search for wireless headphones.",
+            "Apply tomorrow delivery filter.",
+            "Open the first five products from filtered results.",
+            "Validate delivery estimate on product details."
+          ],
+          "expectedResult": "Filtered results contain only products deliverable tomorrow."
+        },
+        {
+          "id": "tc-008",
+          "key": "TC-1141",
+          "title": "Show empty state when no products match delivery filter",
+          "type": "Functional",
+          "priority": "Low",
+          "executionStatus": "Blocked",
+          "automationStatus": "Candidate",
+          "assignedTo": "Sonal Kapoor",
+          "estimateMinutes": 20,
+          "lastRun": null,
+          "preconditions": [
+            "Postal code has limited catalog availability",
+            "Delivery filter is enabled"
+          ],
+          "steps": [
+            "Search for a low-inventory product category.",
+            "Apply same-day delivery filter.",
+            "Observe the result list.",
+            "Clear the filter."
+          ],
+          "expectedResult": "Empty state explains that no products match the selected delivery availability."
+        }
+      ]
+    },
+    {
+      "id": "story-005",
+      "key": "DCP-481",
+      "epicKey": "DCP-102",
+      "title": "Apply loyalty wallet credit to eligible order",
+      "description": "As a loyalty member, I want to use wallet credit on eligible purchases so that I can reduce the payable amount.",
+      "status": "Done",
+      "priority": "Medium",
+      "assignee": "Karan Bhatia",
+      "reporter": "Rahul Menon",
+      "sprint": "Sprint 18",
+      "storyPoints": 3,
+      "testStatus": "Passed",
+      "automationCandidate": true,
+      "acceptanceCriteria": [
+        "Wallet credit is visible only for signed-in loyalty members.",
+        "Eligible order total is reduced by selected wallet credit amount.",
+        "Wallet credit cannot exceed configured maximum redemption limit.",
+        "Ledger entry is created after successful order placement."
+      ],
+      "testCoverage": {
+        "manualCases": 5,
+        "automatedCases": 4,
+        "passed": 9,
+        "failed": 0,
+        "blocked": 0
+      },
+      "testCases": [
+        {
+          "id": "tc-009",
+          "key": "TC-1188",
+          "title": "Apply loyalty wallet credit to eligible order",
+          "type": "Functional",
+          "priority": "Medium",
+          "executionStatus": "Passed",
+          "automationStatus": "Automated",
+          "assignedTo": "Karan Bhatia",
+          "estimateMinutes": 18,
+          "lastRun": {
+            "status": "Passed",
+            "date": "2026-09-17",
+            "build": "24.8.184",
+            "durationSeconds": 84
+          },
+          "preconditions": [
+            "Signed-in shopper is a loyalty member",
+            "Wallet credit is available"
+          ],
+          "steps": [
+            "Add eligible product to cart.",
+            "Proceed to payment.",
+            "Apply wallet credit.",
+            "Place the order."
+          ],
+          "expectedResult": "Wallet credit reduces payable amount and order is placed successfully."
+        },
+        {
+          "id": "tc-010",
+          "key": "TC-1189",
+          "title": "Verify wallet ledger after credit redemption",
+          "type": "Integration",
+          "priority": "Medium",
+          "executionStatus": "Failed",
+          "automationStatus": "Automated",
+          "assignedTo": "Karan Bhatia",
+          "estimateMinutes": 20,
+          "lastRun": {
+            "status": "Failed",
+            "date": "2026-09-17",
+            "build": "24.8.184",
+            "durationSeconds": 96,
+            "defectKey": "DCP-BUG-827"
+          },
+          "preconditions": [
+            "Wallet credit redemption order has been placed",
+            "Ledger API is available in QA"
+          ],
+          "steps": [
+            "Open wallet ledger for the shopper.",
+            "Find the latest redemption entry.",
+            "Validate redemption amount.",
+            "Validate campaign reference and rule id."
+          ],
+          "expectedResult": "Ledger entry includes amount, order id, campaign reference, and redemption rule id."
+        }
+      ]
+    }
+  ],
+  "bugs": [
+    {
+      "id": "bug-001",
+      "key": "DCP-BUG-783",
+      "linkedStoryKey": "DCP-458",
+      "epicKey": "DCP-100",
+      "title": "Expired promo code accepted at checkout",
+      "description": "Checkout applies a discount for an expired promo code when the code was previously cached in the cart session.",
+      "severity": "Critical",
+      "priority": "P1",
+      "status": "Open",
+      "assignee": "Arjun Mehta",
+      "reporter": "Priya Nair",
+      "environment": "QA",
+      "detectedInBuild": "24.8.183",
+      "reproducible": true,
+      "stepsToReproduce": [
+        "Add any eligible product to cart.",
+        "Apply promo code SAVE20 before campaign expiry.",
+        "Keep the same cart session active after campaign expiry.",
+        "Refresh checkout and continue to payment."
+      ],
+      "expectedResult": "Expired promo code is rejected and discount is removed from order summary.",
+      "actualResult": "Expired promo code remains applied and order total stays discounted.",
+      "qaNotes": "Issue appears related to promo validation cache not being refreshed during checkout resume.",
+      "attachments": [
+        "checkout-promo-cache-log.txt",
+        "expired-promo-order-summary.png"
+      ]
+    },
+    {
+      "id": "bug-002",
+      "key": "DCP-BUG-799",
+      "linkedStoryKey": "DCP-463",
+      "epicKey": "DCP-100",
+      "title": "Gift card balance not offered before card entry",
+      "description": "Gift card redemption section appears only after card details are entered, which blocks the intended payment sequence.",
+      "severity": "High",
+      "priority": "P2",
+      "status": "In Progress",
+      "assignee": "Ishaan Verma",
+      "reporter": "Priya Nair",
+      "environment": "QA",
+      "detectedInBuild": "24.8.183",
+      "reproducible": true,
+      "stepsToReproduce": [
+        "Sign in with a user that has active gift card balance.",
+        "Add an eligible product to cart.",
+        "Navigate to checkout payment step.",
+        "Observe payment methods before entering card details."
+      ],
+      "expectedResult": "Gift card redemption is available before card payment form.",
+      "actualResult": "Gift card option appears after card details are entered.",
+      "qaNotes": "Flow ordering differs between desktop and mobile checkout.",
+      "attachments": ["payment-step-before-card-entry.png"]
+    },
+    {
+      "id": "bug-003",
+      "key": "DCP-BUG-801",
+      "linkedStoryKey": "DCP-461",
+      "epicKey": "DCP-101",
+      "title": "Screen reader does not announce cart total updates",
+      "description": "Changing cart quantity updates the visual total but does not trigger an announcement for assistive technology users.",
+      "severity": "High",
+      "priority": "P2",
+      "status": "Ready for Retest",
+      "assignee": "Neha Gupta",
+      "reporter": "Priya Nair",
+      "environment": "QA",
+      "detectedInBuild": "24.8.181",
+      "fixedInBuild": "24.8.184",
+      "reproducible": true,
+      "stepsToReproduce": [
+        "Open cart with screen reader enabled.",
+        "Use keyboard to increase product quantity.",
+        "Wait for cart total recalculation.",
+        "Listen for live region announcement."
+      ],
+      "expectedResult": "Updated subtotal and final total are announced.",
+      "actualResult": "No announcement is heard after total changes.",
+      "qaNotes": "Retest should include keyboard-only flow and two screen reader/browser combinations.",
+      "attachments": ["aria-live-region-dom-snapshot.html"]
+    },
+    {
+      "id": "bug-004",
+      "key": "DCP-BUG-812",
+      "linkedStoryKey": "DCP-472",
+      "epicKey": "DCP-104",
+      "title": "Delivery availability filter returns stale products",
+      "description": "Products unavailable for the selected postal code continue to appear after the delivery filter is applied.",
+      "severity": "Medium",
+      "priority": "P3",
+      "status": "Blocked",
+      "assignee": "Sonal Kapoor",
+      "reporter": "Vikram Rao",
+      "environment": "QA",
+      "detectedInBuild": "24.8.182",
+      "reproducible": true,
+      "blockerReason": "Availability feed intermittently omits postal-code level inventory.",
+      "stepsToReproduce": [
+        "Set postal code to 560001.",
+        "Search for wireless headphones.",
+        "Apply delivery availability filter for tomorrow.",
+        "Open returned products and verify delivery estimate."
+      ],
+      "expectedResult": "Only products deliverable tomorrow are shown.",
+      "actualResult": "Several products show delivery unavailable after opening product details.",
+      "qaNotes": "Keep blocked until service feed stabilizes.",
+      "attachments": ["delivery-filter-api-response.json"]
+    },
+    {
+      "id": "bug-005",
+      "key": "DCP-BUG-827",
+      "linkedStoryKey": "DCP-481",
+      "epicKey": "DCP-102",
+      "title": "Wallet credit ledger entry missing campaign reference",
+      "description": "Successful wallet credit redemption creates a ledger entry without the campaign reference needed for finance reconciliation.",
+      "severity": "Medium",
+      "priority": "P3",
+      "status": "Open",
+      "assignee": "Karan Bhatia",
+      "reporter": "Priya Nair",
+      "environment": "QA",
+      "detectedInBuild": "24.8.184",
+      "reproducible": true,
+      "stepsToReproduce": [
+        "Sign in as loyalty member with wallet credit.",
+        "Place an eligible order using wallet credit.",
+        "Open wallet ledger audit entry.",
+        "Check campaign reference field."
+      ],
+      "expectedResult": "Ledger entry includes campaign reference and redemption rule id.",
+      "actualResult": "Ledger entry contains redemption amount but campaign reference is blank.",
+      "qaNotes": "Functional flow passes, but reporting reconciliation is incomplete.",
+      "attachments": ["wallet-ledger-entry.json"]
+    }
+  ]
+}

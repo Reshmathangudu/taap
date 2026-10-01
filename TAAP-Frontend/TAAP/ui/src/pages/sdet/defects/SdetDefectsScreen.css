@@ -1,0 +1,125 @@
+.sdet-defects-screen {
+  min-height: 100%;
+  background: #f7f8fa;
+  color: #151b26;
+}
+
+.sdet-defects-header,
+.sdet-defects-toolbar,
+.sdet-defects-summary,
+.sdet-defect-card__title-row {
+  display: flex;
+  align-items: center;
+}
+
+.sdet-defects-header {
+    justify-content: space-between;
+    gap: 24px;
+    border-bottom: 1px solid #d8dadd;
+    background: #fff;
+    padding: 20px;
+}
+
+.sdet-defects-breadcrumb {
+  margin-bottom: 12px;
+  color: #7b8491;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sdet-defects-breadcrumb span { padding: 0 7px; color: #b0b5bc; }
+.sdet-defects-header h1 { margin: 0; font-size: 20px; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
+.sdet-defects-header p { margin: 8px 0 0; color: #697381; font-size: 13px; }
+
+.sdet-defects-primary-action,
+.sdet-defect-action {
+  border: 0;
+  background: #507ca7;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.sdet-defects-primary-action { padding: 8px 12px; font-size: 12px; }
+.sdet-defects-primary-action:hover,
+.sdet-defect-action:hover { background: #3e668d; }
+
+.sdet-defects-toolbar {
+  justify-content: space-between;
+  gap: 20px;
+  margin:20px 20px;
+  border-bottom: 1px solid #dfe2e6;
+}
+
+.sdet-defects-tabs { display: flex; align-self: stretch; gap: 3px; }
+.sdet-defects-tabs button { border: 0; border-bottom: 3px solid transparent; background: transparent; color: #697381; padding: 0 14px; cursor: pointer; font-size: 14px; font-weight: 600; }
+.sdet-defects-tabs button.is-active { border-bottom-color: #517da8; color: #263a50; }
+.sdet-defects-tab-count { display: inline-flex; align-items: center; justify-content: center; min-width: 19px; height: 19px; margin-left: 7px; border-radius: 50%; background: #e6edf5; color: #52779d; font-size: 11px; }
+
+.sdet-defects-tools { display: flex; gap: 8px; margin-bottom: 20px; }
+.sdet-defects-search { display: flex; align-items: center; gap: 7px; width: 190px; padding: 7px 9px; border: 1px solid #d9dde2; background: #fff; color: #89919c; }
+.sdet-defects-search input { width: 100%; border: 0; outline: 0; color: #202936; font-size: 12px; }
+.sdet-defects-filter-button { display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; border: 1px solid #d9dde2; background: #fff; color: #4e5866; cursor: pointer; font-size: 12px; }
+
+.sdet-defects-summary { margin: 20px 20px; color: #7b8491; font-size: 12px; }
+.sdet-defects-summary strong { color: #303b49; }
+.sdet-defects-summary-divider { width: 1px; height: 14px; margin: 0 12px; background: #d5d9de; }
+.sdet-defects-summary-spacer { flex: 1; }
+
+.sdet-defects-list { display: grid; gap: 12px; margin:20px; }
+.sdet-defect-card { display: flex; justify-content: space-between; gap: 32px; padding: 20px 20px; border: 1px solid #e0e3e7; background: #fff; box-shadow: 0 2px 7px rgb(24 39 58 / 3%); }
+.sdet-defect-card__main { min-width: 0; }
+.sdet-defect-card__title-row { gap: 11px; align-items: baseline; }
+.sdet-defect-id { flex: 0 0 auto; color: #4d77a0; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; font-weight: 700; }
+.sdet-defect-card h2 { margin: 0; color: #182332; font-size: 16px; line-height: 1.35; font-weight: 700; }
+.sdet-defect-source { margin: 12px 0 17px; color: #8a929d; font-size: 12px; }
+.sdet-defect-source strong { color: #60758c; font-weight: 500; }
+.sdet-defect-action { padding: 9px 14px; font-size: 12px; }
+.sdet-defect-card__meta { display: flex; align-items: flex-start; justify-content: flex-end; gap: 10px; min-width: 275px; padding-top: 1px; }
+.sdet-defect-status, .sdet-defect-detail { padding: 7px 11px; font-size: 11px; line-height: 1; white-space: nowrap; }
+.sdet-defect-status { letter-spacing: .04em; text-transform: uppercase; }
+.sdet-defect-status--draft { background: #f0edf6; color: #77628c; }
+.sdet-defect-status--retest { background: #f6eedb; color: #96732e; }
+.sdet-defect-detail { background: #f0f1f3; color: #737b86; }
+.sdet-defect-open { display: inline-flex; padding: 6px; border: 0; background: transparent; color: #7e8792; cursor: pointer; }
+.sdet-defect-open:hover { color: #4d77a0; }
+.sdet-defects-empty { padding: 42px; border: 1px dashed #d6dbe1; color: #77818e; text-align: center; background: #fff; }
+
+.sdet-defect-review { min-height: 100%; height: 100%; overflow-y: auto; background: #f3f3f3; color: #10243c; }
+.sdet-defect-review__header { padding: 12px 19px 14px; border-bottom: 1px solid #d8dadd; background: #fff; }
+.sdet-defect-review__back { display: block; margin: 0 0 12px; padding: 0; border: 0; background: transparent; color: #456d98; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+.sdet-defect-review__title-row { display: flex; align-items: center; gap: 10px; }
+.sdet-defect-review__title-row h1 { margin: 0; font-size: 20px; line-height: 1.2; }
+.sdet-defect-review__header p { margin: 7px 0 0; color: #718096; font-size: 13px; }
+.sdet-defect-review__badge { padding: 7px 11px; background: #f1eef8; color: #77628c; font-size: 11px; letter-spacing: .08em; }
+.sdet-defect-review__form { width: min(810px, calc(100% - 38px)); margin: 17px 19px 32px; padding: 24px 18px 0; border: 1px solid #d0d0d0; background: #f8f8f8; box-sizing: border-box; }
+.sdet-defect-review__form label { display: block; margin-bottom: 18px; color: #718096; font-size: 10px; letter-spacing: .12em; }
+.sdet-defect-review__form textarea { display: block; width: 100%; margin-top: 8px; padding: 11px 13px; border: 1px solid #c8c8c8; border-radius: 0; box-sizing: border-box; resize: vertical; background: #e9e9e9; color: #10243c; font: inherit; font-size: 14px; line-height: 1.55; outline-color: #507ca7; }
+.sdet-defect-review__split-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.sdet-defect-review__actions { display: flex; align-items: center; gap: 8px; padding: 14px 0 18px; }
+.sdet-defect-review__actions button { padding: 10px 15px; border: 1px solid #ccd1d7; background: #f7f7f7; color: #10243c; cursor: pointer; font-size: 12px; font-weight: 700; }
+.sdet-defect-review__actions .sdet-defect-review__submit { border-color: #507ca7; background: #507ca7; color: #fff; }
+.sdet-defect-review__actions span { margin-left: 8px; color: #50734f; font-size: 12px; }
+
+@media (max-width: 850px) {
+  .sdet-defects-screen { padding: 26px 20px 42px; }
+  .sdet-defects-toolbar { align-items: flex-start; flex-direction: column; padding-bottom: 12px; }
+  .sdet-defects-tabs { width: 100%; overflow-x: auto; }
+  .sdet-defects-tabs button { min-height: 42px; white-space: nowrap; }
+  .sdet-defects-tools { width: 100%; }
+  .sdet-defects-search { flex: 1; }
+  .sdet-defect-card { flex-direction: column; gap: 16px; }
+  .sdet-defect-card__meta { justify-content: flex-start; min-width: 0; flex-wrap: wrap; }
+}
+
+@media (max-width: 520px) {
+  .sdet-defects-header { align-items: flex-start; flex-direction: column; margin-bottom: 20px; }
+  .sdet-defects-primary-action { width: 100%; }
+  .sdet-defect-card__title-row { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .sdet-defects-summary { align-items: flex-start; flex-wrap: wrap; gap: 4px; }
+  .sdet-defects-summary-divider, .sdet-defects-summary-spacer { display: none; }
+  .sdet-defect-review__title-row { align-items: flex-start; flex-wrap: wrap; }
+  .sdet-defect-review__split-fields { grid-template-columns: 1fr; gap: 0; }
+  .sdet-defect-review__form { width: calc(100% - 28px); margin: 14px; padding: 18px 12px 0; }
+  .sdet-defect-review__actions { margin: 0 -12px; padding-left: 0; flex-wrap: wrap; }
+}

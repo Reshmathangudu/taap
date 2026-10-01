@@ -1,0 +1,75 @@
+.rta-gv {
+  --bg: #F7F8FA; --card: #FFFFFF; --border: #E4E7EC; --border-strong: #D0D5DD;
+  --text: #101828; --text-2: #667085; --text-3: #98A2B3;
+  --accent: #2563EB;
+  --danger: #D92D20; --danger-bg: #FEE4E2; --danger-strong: #F97066;
+  --warn: #B54708; --warn-bg: #FEF0C7; --warn-strong: #F79009;
+  --success: #079455; --success-bg: #DCFAE6; --success-strong: #75E0A7;
+  --slate: #475467; --slate-bg: #F1F2F4;
+  --radius: 8px;
+  container-type: inline-size;
+  background: var(--bg);
+  position: relative;
+}
+.rta-gv *{ box-sizing: border-box; }
+.rta-gv-inner{
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px; line-height: 1.5; padding: 22px 26px; max-width: 900px; margin: 0 auto;
+}
+.rta-gv-inner .rta-gv-badgehead{ display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.rta-gv-inner .rta-gv-badgehead .dot{ width:9px; height:9px; border-radius:50%; background:var(--success); }
+.rta-gv-inner .rta-gv-badgehead span{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-2); font-weight:600; }
+.rta-gv-inner .rta-gv-live{ background:rgba(37,99,235,.12); color:var(--accent); padding:2px 8px; border-radius:999px; text-transform:none; letter-spacing:0; font-weight:600; }
+
+/* Live-refresh cue: fired for ~1.4s when Agent 6 finishing triggers a
+   refetch (see ExclusionSignoffQueue.tsx / runStatusBus.ts). */
+.rta-gv.rta-flash{ animation: rta-flash-bg-gv 1.4s ease-out; }
+@keyframes rta-flash-bg-gv{ 0%{ background-color: rgba(37,99,235,.10); } 100%{ background-color: var(--bg); } }
+.rta-gv-inner h1{ font-size:20px; font-weight:600; margin:0 0 4px; }
+.rta-gv-inner .rta-gv-subtitle{ font-size:13px; color:var(--text-2); margin:0 0 20px; }
+.rta-gv-inner .panel{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:16px; }
+.rta-gv-inner .panel h3{ font-size:13px; font-weight:600; margin:0 0 10px; }
+.rta-gv-inner .panel h3 .muted{ font-weight:400; color:var(--text-2); font-size:12px; }
+.rta-gv-inner .badge{ display:inline-block; padding:2px 9px; border-radius:6px; font-size:11px; font-weight:600; white-space:nowrap; }
+.rta-gv-inner .badge.risk-low{ background:var(--success-bg); color:var(--success); }
+.rta-gv-inner .badge.risk-medium{ background:var(--warn-bg); color:var(--warn); }
+.rta-gv-inner .badge.risk-high{ background:var(--danger-bg); color:var(--danger); }
+.rta-gv-inner .badge.pending{ background:var(--slate-bg); color:var(--slate); }
+.rta-gv-inner .badge.signed{ background:var(--success-bg); color:var(--success); }
+.rta-gv-inner .exclusion-card{ border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin-bottom:12px; transition:box-shadow .15s ease, border-color .15s ease; }
+.rta-gv-inner .exclusion-card.highlight{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(37,99,235,.15); }
+.rta-gv-inner .exclusion-card-head{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; gap:8px; flex-wrap:wrap; }
+.rta-gv-inner .exclusion-name{ font-size:13px; font-weight:600; margin:0 0 2px; }
+.rta-gv-inner .exclusion-meta{ font-size:11px; color:var(--text-2); margin:0; }
+.rta-gv-inner .stat-row{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:10px 0; font-size:12px; }
+.rta-gv-inner .stat-row div span{ display:block; color:var(--text-2); font-size:11px; margin-bottom:2px; }
+.rta-gv-inner .signoff-row{ display:flex; justify-content:space-between; align-items:center; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); gap:8px; flex-wrap:wrap; }
+.rta-gv-inner .btn{ padding:8px 14px; border-radius:var(--radius); border:1px solid var(--border-strong); background:var(--card); font-size:13px; cursor:pointer; font-family:inherit; color:var(--text); }
+.rta-gv-inner .btn:hover{ background:var(--bg); }
+.rta-gv-inner .btn.primary{ background:var(--accent); color:#fff; border-color:var(--accent); }
+.rta-gv-inner .btn.primary:hover{ background:#1d4ed8; }
+.rta-gv-inner .btn.sm{ padding:5px 10px; font-size:12px; }
+.rta-gv-inner .btn:disabled{ opacity:.5; cursor:not-allowed; }
+
+/* Modal is a sibling of .rta-gv-inner (position:fixed relative to the
+   viewport, so it deliberately sits outside the width-constrained content
+   column) but still scoped under .rta-gv for style isolation. */
+.rta-gv .modal-overlay{ display:none; position:fixed; inset:0; background:rgba(16,24,40,.5); align-items:center; justify-content:center; z-index:50; }
+.rta-gv .modal-overlay.open{ display:flex; }
+.rta-gv .modal{ background:var(--card); border-radius:12px; width:360px; max-width:calc(100vw - 32px); padding:20px; }
+.rta-gv .modal h4{ margin:0 0 4px; font-size:14px; }
+.rta-gv .modal p.sub{ margin:0 0 14px; font-size:12px; color:var(--text-2); }
+.rta-gv .modal label{ font-size:12px; color:var(--text-2); display:block; margin-bottom:4px; margin-top:10px; }
+.rta-gv .modal select, .rta-gv .modal textarea{ width:100%; padding:8px 10px; border:1px solid var(--border-strong); border-radius:var(--radius); font-family:inherit; font-size:13px; resize:none; }
+.rta-gv .error-text{ display:none; font-size:11px; color:var(--danger); margin:5px 0 0; }
+.rta-gv .error-text.show{ display:block; }
+.rta-gv .modal-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:16px; }
+
+/* Panel narrower than ~560px: stack the three-column stat row and let
+   card headers wrap instead of forcing the badge to squeeze in beside a
+   long test name. */
+@container (max-width: 560px) {
+  .rta-gv-inner{ padding: 16px; }
+  .rta-gv-inner .stat-row{ grid-template-columns: 1fr; }
+}

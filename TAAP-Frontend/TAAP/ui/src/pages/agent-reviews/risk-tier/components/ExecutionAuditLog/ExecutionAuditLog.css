@@ -1,0 +1,46 @@
+.rta-al {
+  --bg: #F7F8FA; --card: #FFFFFF; --border: #E4E7EC;
+  --text: #101828; --text-2: #667085; --text-3: #98A2B3;
+  --warn: #B54708; --warn-bg: #FEF0C7; --warn-strong: #F79009;
+  --radius: 8px;
+  container-type: inline-size;
+  background: var(--bg);
+}
+.rta-al *{ box-sizing: border-box; }
+.rta-al-inner{
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px; line-height: 1.5; padding: 22px 26px; max-width: 900px; margin: 0 auto;
+}
+.rta-al-inner .rta-al-badgehead{ display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.rta-al-inner .rta-al-badgehead .dot{ width:9px; height:9px; border-radius:50%; background:var(--text-2); }
+.rta-al-inner .rta-al-badgehead span{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-2); font-weight:600; }
+.rta-al-inner .rta-al-live{ background:rgba(37,99,235,.12); color:#2563EB; padding:2px 8px; border-radius:999px; text-transform:none; letter-spacing:0; font-weight:600; }
+
+/* Live-refresh cue: fired for ~1.4s when the Immutable Audit Ledger's
+   write step finishes and triggers a refetch (see ExecutionAuditLog.tsx /
+   runStatusBus.ts) — this is the pipeline's last step, so this panel
+   refreshes after Agent 5 and Agent 6 already have. */
+.rta-al.rta-flash{ animation: rta-flash-bg-al 1.4s ease-out; }
+@keyframes rta-flash-bg-al{ 0%{ background-color: rgba(37,99,235,.10); } 100%{ background-color: var(--bg); } }
+.rta-al-inner h1{ font-size:20px; font-weight:600; margin:0 0 4px; }
+.rta-al-inner .rta-al-subtitle{ font-size:13px; color:var(--text-2); margin:0 0 20px; }
+.rta-al-inner .panel{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:16px; }
+.rta-al-inner .panel h3{ font-size:13px; font-weight:600; margin:0 0 10px; }
+.rta-al-inner .panel h3 .muted{ font-weight:400; color:var(--text-2); font-size:12px; }
+.rta-al-inner .audit-entry{ display:flex; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); font-size:12px; }
+.rta-al-inner .audit-entry:last-child{ border-bottom:none; }
+.rta-al-inner .audit-time{ color:var(--text-3); width:52px; flex-shrink:0; }
+.rta-al-inner .audit-agent{ color:var(--text-2); font-weight:600; width:150px; flex-shrink:0; }
+.rta-al-inner .feedback-item{ border-left:3px solid var(--warn-strong); padding:8px 12px; margin-bottom:10px; background:var(--warn-bg); border-radius:0 var(--radius) var(--radius) 0; }
+.rta-al-inner .feedback-item p{ margin:0; font-size:12px; color:var(--warn); }
+
+/* Panel narrower than ~480px: the fixed-width time/agent columns stop
+   working as columns and just wrap onto their own lines above the
+   message, same idea as the table fix in TestSelectionReport. */
+@container (max-width: 480px) {
+  .rta-al-inner{ padding: 16px; }
+  .rta-al-inner .audit-entry{ flex-direction:column; gap:2px; }
+  .rta-al-inner .audit-time{ width:auto; }
+  .rta-al-inner .audit-agent{ width:auto; }
+}

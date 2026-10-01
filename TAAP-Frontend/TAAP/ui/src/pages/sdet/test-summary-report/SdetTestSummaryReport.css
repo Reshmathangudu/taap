@@ -1,0 +1,365 @@
+.sdet-test-summary-report {
+  min-height: 100%;
+  overflow: auto;
+  background: #f1f1f2;
+  color: #13243a;
+}
+
+.sdet-test-summary-report__header {
+  min-height: 72px;
+  padding: 12px 24px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #d5d5d7;
+  background: #fff;
+}
+
+.sdet-test-summary-report__eyebrow,
+.sdet-summary-card-heading p,
+.sdet-summary-section-label,
+.sdet-traceability-heading-row h2 {
+  margin: 0;
+  color: #8a8194;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.sdet-test-summary-report__header h1 {
+  margin: 2px 0 0;
+  color: #111d2e;
+  font-size: 20px;
+  line-height: 1.1;
+  font-weight:700;
+}
+
+.sdet-test-summary-report__meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #687487;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.sdet-test-summary-report__meta-divider {
+  width: 1px;
+  height: 16px;
+  background: #d8dce2;
+}
+
+.sdet-test-summary-report__body {
+  padding: 28px 24px 34px;
+}
+
+.sdet-test-summary-report__overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto 24px;
+}
+
+.sdet-summary-corner-frame {
+  position: relative;
+  border: 1px solid #d2d3d7;
+  background: #fff;
+}
+
+/* .sdet-summary-corner-frame::before,
+.sdet-summary-corner-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(#74777d, #74777d) left -6px top 0 / 13px 1px no-repeat,
+    linear-gradient(#74777d, #74777d) left 0 top -6px / 1px 13px no-repeat,
+    linear-gradient(#74777d, #74777d) right -6px top 0 / 13px 1px no-repeat,
+    linear-gradient(#74777d, #74777d) right 0 top -6px / 1px 13px no-repeat,
+    linear-gradient(#74777d, #74777d) left -6px bottom 0 / 13px 1px no-repeat,
+    linear-gradient(#74777d, #74777d) left 0 bottom -6px / 1px 13px no-repeat,
+    linear-gradient(#74777d, #74777d) right -6px bottom 0 / 13px 1px no-repeat,
+    linear-gradient(#74777d, #74777d) right 0 bottom -6px / 1px 13px no-repeat;
+} */
+
+.sdet-summary-status-card,
+.sdet-summary-week-card {
+  padding: 20px 18px 17px;
+}
+
+.sdet-summary-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.sdet-summary-draft-badge {
+  padding: 7px 10px;
+  color: #79658b;
+  background: #f0ecf5;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.sdet-summary-status-list {
+  display: grid;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #1b385b;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.sdet-summary-status-list li {
+  position: relative;
+  padding-left: 19px;
+}
+
+.sdet-summary-status-list li::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 9px;
+  width: 9px;
+  height: 1px;
+  background: #5681aa;
+}
+
+.sdet-summary-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 17px;
+}
+
+.sdet-summary-button,
+.sdet-summary-text-button,
+.sdet-traceability-footer button {
+  min-height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #d4d8df;
+  border-radius: 0;
+  padding: 0 12px;
+  background: #fff;
+  color: #1a2a40;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sdet-summary-button--primary {
+  border-color: #5c84ac;
+  background: #5c84ac;
+  color: #fff;
+}
+
+.sdet-summary-text-button,
+.sdet-traceability-footer button {
+  border-color: transparent;
+  color: #507aa5;
+  padding-inline: 2px;
+}
+
+.sdet-summary-week-card .sdet-summary-section-label {
+  margin-bottom: 18px;
+}
+
+.sdet-summary-metrics {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.sdet-summary-metrics div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.sdet-summary-metrics dt {
+  color: #768298;
+  font-size: 14px;
+}
+
+.sdet-summary-metrics dd {
+  margin: 0;
+  color: #111d2e;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.sdet-summary-metrics dd span {
+  font-weight: 500;
+}
+
+.sdet-traceability-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  border: 1px solid #d2d3d7;
+  background: #fff;
+}
+
+.sdet-traceability-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 17px;
+  height: 46px;
+  border-bottom: 1px solid #d2d3d7;
+  background: #f7f7f9;
+}
+
+.sdet-traceability-heading-row h2 {
+  color: #746e7d;
+}
+
+.sdet-traceability-heading-row span {
+  color: #7b8798;
+  font-size: 12px;
+}
+
+.sdet-traceability-table-wrap {
+  overflow-x: auto;
+}
+
+.sdet-traceability-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+  table-layout: fixed;
+}
+
+.sdet-traceability-table th,
+.sdet-traceability-table td {
+  height: 54px;
+  padding: 0 17px;
+  border-bottom: 1px solid #e4e5e8;
+  text-align: left;
+  font-size: 13px;
+}
+
+.sdet-traceability-table th {
+  height: 39px;
+  color: #8a8194;
+  background: #fbfbfc;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.sdet-traceability-table th:nth-child(1) { width: 11%; }
+.sdet-traceability-table th:nth-child(2),
+.sdet-traceability-table th:nth-child(3),
+.sdet-traceability-table th:nth-child(4),
+.sdet-traceability-table th:nth-child(5) { width: 8.5%; }
+.sdet-traceability-table th:nth-child(6) { width: 55%; }
+
+.sdet-traceability-story {
+  color: #2a5688;
+  font-weight: 600;
+}
+
+.sdet-coverage-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sdet-coverage-track {
+  flex: 1;
+  height: 7px;
+  background: #e8e8ea;
+}
+
+.sdet-coverage-fill {
+  display: block;
+  height: 100%;
+}
+
+.sdet-coverage-fill--green { background: #328353; }
+.sdet-coverage-fill--amber { background: #a8720a; }
+.sdet-coverage-fill--red { background: #d53f3f; }
+.sdet-coverage-value {
+  width: 31px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.sdet-coverage-value--green { color: #25834f; }
+.sdet-coverage-value--amber { color: #a8720a; }
+.sdet-coverage-value--red { color: #d53f3f; }
+
+.sdet-traceability-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 17px 0;
+  color: #71829b;
+  font-size: 12px;
+}
+
+.sdet-traceability-footer button {
+  font-size: 12px;
+}
+
+.sdet-traceability-footer button:disabled {
+  color: #8b96a6;
+  cursor: wait;
+}
+
+.sdet-summary-spin {
+  animation: sdet-summary-sync-spin 0.9s linear infinite;
+}
+
+@keyframes sdet-summary-sync-spin {
+  to { transform: rotate(360deg); }
+}
+
+.sdet-traceability-sync-error {
+  margin: 0;
+  padding: 0 17px 14px;
+  color: #b33a3a;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .sdet-test-summary-report__overview {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .sdet-test-summary-report__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .sdet-test-summary-report__meta {
+    white-space: normal;
+  }
+
+  .sdet-test-summary-report__body {
+    padding: 18px 12px 28px;
+  }
+
+  .sdet-summary-card-heading,
+  .sdet-traceability-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "taap",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "ui",
+    "service-layer"
+  ],
+  "scripts": {
+    "dev": "npm --workspace ui run dev -- --host 127.0.0.1",
+    "build": "npm --workspace ui run build",
+    "preview": "npm --workspace ui run preview -- --host 127.0.0.1",
+    "service:start": "npm --workspace service-layer run start",
+    "fetch:jira": "npm --workspace service-layer run fetch:jira"
+  },
+  "dependencies": {
+    "openai": "^7.23.0"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "testScripts": [
+    {
+      "testCaseId": "TC-1046",
+      "title": "Apply a valid promotional code at checkout",
+      "scriptId": "SCR-01",
+      "scriptName": "promo-code-valid.spec.js",
+      "description": "Validates that an active promo code applies the correct discount during checkout.",
+      "testType": "Regression",
+      "layers": ["UI"],
+      "testsInScope": 1,
+      "tag": "promo-valid",
+      "workflow": "checkout-regression.yml",
+      "workflowParams": "env, build, tag",
+      "environment": "QA",
+      "build": "24.8.183",
+      "machine": "qa-runner-02",
+      "browsers": ["Chrome"],
+      "retry": "Environment failures only",
+      "schedule": {
+        "frequency": "Daily",
+        "time": "22:00",
+        "cadence": "weekdays",
+        "paused": false
+      },
+      "recipients": ["qa-leads@hcltech.com"],
+      "sendEmail": "After every run",
+      "estimatedMinutes": {
+        "min": 4,
+        "max": 6,
+        "perBrowser": {
+          "Chrome": "4-6m"
+        }
+      },
+      "script": [
+        "Open checkout page",
+        "Enter valid promo code",
+        "Apply promo code",
+        "Verify discount is shown in order summary"
+      ]
+    },
+    {
+      "testCaseId": "TC-1047",
+      "title": "Reject an invalid promotional code with inline error",
+      "scriptId": "SCR-02",
+      "scriptName": "promo-code-invalid.spec.js",
+      "description": "Validates that an invalid promo code is rejected with a clear inline error.",
+      "testType": "Negative",
+      "layers": ["UI"],
+      "testsInScope": 1,
+      "tag": "promo-invalid",
+      "workflow": "checkout-negative.yml",
+      "workflowParams": "env, build, tag",
+      "environment": "QA",
+      "build": "24.8.183",
+      "machine": "qa-runner-02",
+      "browsers": ["Chrome", "Edge"],
+      "retry": "Off",
+      "schedule": {
+        "frequency": "Weekly",
+        "dayOfWeek": "Mon",
+        "time": "21:30",
+        "cadence": "weekly",
+        "paused": false
+      },
+      "recipients": ["qa-leads@hcltech.com"],
+      "sendEmail": "Only on failure",
+      "estimatedMinutes": {
+        "min": 5,
+        "max": 8,
+        "perBrowser": {
+          "Chrome": "3-4m",
+          "Edge": "2-4m"
+        }
+      },
+      "script": [
+        "Open checkout page",
+        "Enter invalid promo code",
+        "Apply promo code",
+        "Verify inline error is displayed"
+      ]
+    },
+    {
+      "testCaseId": "TC-1052",
+      "title": "Guest checkout applies the promotional code",
+      "scriptId": "SCR-03",
+      "scriptName": "guest-checkout-promo.spec.js",
+      "description": "Validates that a guest user can apply a valid promo code during checkout.",
+      "testType": "Regression",
+      "layers": ["UI", "End to end"],
+      "testsInScope": 1,
+      "tag": "guest-promo",
+      "workflow": "guest-checkout.yml",
+      "workflowParams": "env, build, browser",
+      "environment": "UAT",
+      "build": "24.8.180",
+      "machine": "uat-runner-01",
+      "browsers": ["Chrome"],
+      "retry": "Environment failures only",
+      "schedule": {
+        "frequency": "Weekly",
+        "dayOfWeek": "Fri",
+        "time": "21:00",
+        "cadence": "weekly",
+        "paused": false
+      },
+      "recipients": ["qa-leads@hcltech.com", "release-mgmt@hcltech.com"],
+      "sendEmail": "After every run",
+      "estimatedMinutes": {
+        "min": 8,
+        "max": 12,
+        "perBrowser": {
+          "Chrome": "8-12m"
+        }
+      },
+      "script": [
+        "Start guest checkout",
+        "Add shipping details",
+        "Apply valid promo code",
+        "Verify discount and place order"
+      ]
+    }
+  ]
+}

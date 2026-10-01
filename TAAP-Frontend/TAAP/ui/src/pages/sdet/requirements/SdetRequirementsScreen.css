@@ -1,0 +1,112 @@
+.sdet-requirements-screen { height: 100%; min-height: 0; display: flex; flex-direction: column; overflow: hidden; background: #f4f4f5; color: #26364b; font-size: 12px; }
+.sdet-requirements-screen__breadcrumbs { display: flex; align-items: center; gap: 7px; padding: 12px 20px 8px; color: #778494; font-size: 11px; }
+.sdet-requirements-screen__breadcrumbs strong { color: #36506d; }
+.sdet-requirements-screen__topbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 20px 12px; background: #fff; border-bottom: 1px solid #dce0e5; }
+.sdet-requirements-screen h1 { margin: 0 0 5px; color: #1c2c42; font-size: 20px; font-weight: 700; line-height: 1.1; }
+.sdet-requirements-screen__topbar p { margin: 0; color: #7a8795; font-size: 11px; }
+.sdet-requirements-screen__topbar p span { display: inline-block; width: 6px; height: 6px; margin-right: 5px; background: #5a83ad; }
+.sdet-requirements-screen__actions { display: flex; gap: 8px; }
+.sdet-requirements-screen button { font: inherit; cursor: pointer; }
+.sdet-requirements-screen__actions button { padding: 9px 12px; border: 1px solid #d3d9e0; background: #fff; color: #26384f; font-weight: 700; white-space: nowrap; }
+.sdet-requirements-screen__actions .primary { border-color: #5a82aa; background: #5a82aa; color: #fff; }
+.sdet-requirements-screen__workspace { display: grid; grid-template-columns: 290px minmax(420px, 1fr) 365px; flex: 1; min-height: 0; }
+.sdet-requirements-screen__list-panel { align-self: stretch; min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; background: #fff; border-right: 1px solid #d9dde2; scrollbar-color: #b8c4d0 #f4f6f8; scrollbar-width: thin; }
+.sdet-requirements-screen__search { display: flex; align-items: center; gap: 7px; height: 34px; margin: 11px 10px 7px; padding: 0 9px; border: 1px solid #cfd5dc; color: #9aa2ac; }
+.sdet-requirements-screen__search input { width: 100%; border: 0; outline: 0; color: #26364b; background: transparent; font-size: 12px; }
+.sdet-requirements-screen__filters { display: flex; flex-wrap: wrap; gap: 5px; padding: 0 10px 10px; }
+.sdet-requirements-screen__filters span, .sdet-requirements-screen__filters button { padding: 5px 7px; border: 1px solid #c5d2e1; background: #f9fbfd; color: #5278a0; font-size: 10px; }
+.sdet-requirements-screen__filters span:nth-child(2) { color: #ad6e69; border-color: #e6c9c5; background: #fff7f6; }
+.sdet-requirements-screen__filters button { background: #fff; }
+.sdet-requirements-screen__cards { border-top: 1px solid #e2e5e8; }
+.sdet-requirements-screen__card { width: 100%; padding: 12px 12px 11px; border: 0; border-bottom: 1px solid #e2e5e8; border-left: 3px solid transparent; background: #fff; color: #304157; text-align: left; }
+.sdet-requirements-screen__card:hover, .sdet-requirements-screen__card.is-selected { background: #f6f9fc; border-left-color: #5680aa; }
+.sdet-requirements-screen__card-top { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+.sdet-requirements-screen__card-top strong { color: #557da5; font-size: 11px; }
+.sdet-requirements-screen__card-top small { margin-left: auto; color: #8793a0; }
+.sdet-requirements-screen__priority { padding: 3px 5px; color: #bd6f65; background: #fff0ef; font-size: 9px; }
+.sdet-requirements-screen__priority--medium { color: #b4863c; background: #fff7e7; }
+.sdet-requirements-screen__priority--low { color: #55718a; background: #edf3f8; }
+.sdet-requirements-screen__card > b { display: block; margin-bottom: 8px; color: #26384e; font-size: 12px; line-height: 1.3; }
+.sdet-requirements-screen__card-meta { display: flex; gap: 8px; color: #7c8996; font-size: 9px; }
+.sdet-requirements-screen__card > i { display: block; height: 3px; margin-top: 8px; background: #e7eaed; }
+.sdet-requirements-screen__card > i em { display: block; height: 100%; background: #bf7c2d; }
+.sdet-requirements-screen__detail { min-width: 0; min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; background: #fff; scrollbar-color: #b8c4d0 #f4f6f8; scrollbar-width: thin; }
+.sdet-requirements-screen__detail-heading { display: flex; justify-content: space-between; gap: 18px; padding: 14px 18px 10px; }
+.sdet-requirements-screen__detail-id { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: #7c8795; font-size: 10px; }
+.sdet-requirements-screen__detail-id strong { color: #4e779f; font-size: 12px; }
+.sdet-requirements-screen__risk { padding: 4px 7px; color: #b26963; background: #fff1f0; }
+.sdet-requirements-screen__detail h2 { margin: 8px 0 4px; color: #17283e; font-size: 22px; line-height: 1.15; }
+.sdet-requirements-screen__detail-heading p { margin: 0; color: #7a8795; font-size: 11px; }
+.sdet-requirements-screen__scores { display: flex; gap: 20px; padding-top: 4px; color: #8a94a0; font-size: 9px; text-align: right; white-space: nowrap; }
+.sdet-requirements-screen__scores b { display: block; margin-top: 4px; color: #9e6a17; font-size: 22px; }
+.sdet-requirements-screen__tabs { display: flex; gap: 22px; padding: 0 18px; border-bottom: 1px solid #dce0e5; margin-top: 13px; }
+.sdet-requirements-screen__tabs button { padding: 10px 0; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #728092; }
+.sdet-requirements-screen__tabs button.is-active { border-bottom-color: #507ca8; color: #1f354e; font-weight: 800; }
+.sdet-requirements-screen__description { padding: 17px 18px; }
+.sdet-requirements-screen h3 { margin: 0 0 8px; color: #7b8794; font-size: 10px; letter-spacing: .1em; }
+.sdet-requirements-screen__description > p { max-width: 700px; margin: 0 0 20px; color: #3d4b5d; font-size: 13px; line-height: 1.55; }
+.sdet-requirements-screen__impact-heading { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid #dfe3e7; }
+.sdet-requirements-screen__impact-heading h2 { margin: 5px 0 5px; color: #1c2c42; font-size: 20px; line-height: 1.2; }
+.sdet-requirements-screen__impact-heading span { color: #7a8795; font-size: 11px; }
+.sdet-requirements-screen__impact-heading button {font-size:11px; padding: 5px; border: 1px solid #cfd5dc; background: #456d98; color: #fff; white-space: nowrap; }
+.sdet-requirements-screen__jira-description { white-space: pre-line; }
+.sdet-requirements-screen__test-steps { margin: 0 0 20px; padding-left: 28px; color: #3d4b5d; font-size: 13px; line-height: 1.55; }
+.sdet-requirements-screen__test-steps li { padding: 4px 0; }
+.sdet-requirements-screen__data-sets { margin: 0 0 20px; }
+.sdet-requirements-screen__data-set { display: grid; grid-template-columns: 125px 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px solid #eceff1; color: #3d4b5d; font-size: 13px; line-height: 1.45; }
+.sdet-requirements-screen__data-set strong { color: #456d98; }
+.sdet-requirements-screen__risk-list { margin: 0 0 20px; }
+.sdet-requirements-screen__risk-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid #eceff1; color: #3d4b5d; font-size: 13px; line-height: 1.45; }
+.sdet-requirements-screen__risk-item > div { display: grid; gap: 3px; }
+.sdet-requirements-screen__risk-item strong { color: #456d98; }
+.sdet-requirements-screen__risk-item em { padding: 4px 7px; font-size: 10px; font-style: normal; }
+.sdet-requirements-screen__risk-item .sdet-risk-level-high { color: #b06763; background: #fff0ef; }
+.sdet-requirements-screen__risk-item .sdet-risk-level-medium { color: #a4772e; background: #fff5df; }
+.sdet-requirements-screen__risk-item .sdet-risk-level-low { color: #477a61; background: #eaf5ef; }
+.sdet-requirements-screen__dependency-list { margin: 0 0 20px; }
+.sdet-requirements-screen__dependency-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid #eceff1; color: #3d4b5d; font-size: 13px; line-height: 1.45; }
+.sdet-requirements-screen__dependency-item > div { display: grid; gap: 3px; }
+.sdet-requirements-screen__dependency-item strong { color: #456d98; }
+.sdet-requirements-screen__dependency-item em { padding: 4px 7px; color: #477a61; background: #eaf5ef; font-size: 10px; font-style: normal; }
+.sdet-requirements-screen__empty-state { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #5f6f80; text-align: center; }
+.sdet-requirements-screen__empty-state strong { color: #26384f; font-size: 15px; }
+.sdet-requirements-screen__empty-state span { max-width: 420px; }
+.sdet-requirements-screen__empty-state button { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: 1px solid #5680aa; background: #5680aa; color: #fff; }
+.sdet-requirements-screen__effort-list { margin: 0 0 20px; }
+.sdet-requirements-screen__effort-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid #eceff1; color: #3d4b5d; font-size: 13px; line-height: 1.45; }
+.sdet-requirements-screen__effort-item > div { display: grid; gap: 3px; }
+.sdet-requirements-screen__effort-item strong { color: #456d98; }
+.sdet-requirements-screen__effort-item em { padding: 4px 7px; color: #a4772e; background: #fff5df; font-size: 10px; font-style: normal; white-space: nowrap; }
+.sdet-requirements-screen__criteria-heading { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #dfe3e7; }
+.sdet-requirements-screen__criteria-heading span { color: #aa762c; font-size: 10px; }
+.sdet-requirements-screen__criterion { display: grid; grid-template-columns: 25px 1fr auto; align-items: center; gap: 6px; min-height: 38px; border-bottom: 1px solid #eceff1; color: #435266; }
+.sdet-requirements-screen__criterion > b { width: 20px; height: 20px; display: grid; place-items: center; color: #5b6c7f; background: #f1f3f5; font-size: 10px; }
+.sdet-requirements-screen__criterion em { padding: 4px 7px; color: #477a61; background: #eaf5ef; font-size: 10px; font-style: normal; }
+.sdet-requirements-screen__criterion .sdet-criteria-partial { color: #a4772e; background: #fff5df; }
+.sdet-requirements-screen__criterion .sdet-criteria-not-covered { color: #b06763; background: #fff0ef; }
+.sdet-requirements-screen__criterion .sdet-criteria-missing { color: #8166a6; background: #f2edfa; }
+.sdet-requirements-screen__analysis { align-self: stretch; min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 0 10px 18px; background: #fbfaff; border-left: 1px solid #dddbe4; scrollbar-color: #c5bbd6 #f8f6fb; scrollbar-width: thin; }
+.sdet-requirements-screen__analysis-title { display: flex; align-items: center; gap: 7px; padding: 14px 5px 12px; color: #456d98; border-bottom: 1px solid #ddd8e9; }
+.sdet-requirements-screen__analysis-title strong { font-size: 13px; }
+.sdet-requirements-screen__analysis-title b { margin-left: auto; font-size: 11px; }
+.sdet-requirements-screen__accepted { display: flex; align-items: center; gap: 6px; margin: 12px 2px 15px; padding: 9px; color: #367555; background: #e9f6ed; border: 1px solid #c4e3cb; font-size: 10px; }
+.sdet-requirements-screen__analysis h3 { margin-top: 14px; }
+.sdet-requirements-screen__summary-box { margin: 0; padding: 10px; border-left: 3px solid #735ba1; color: #536177; background: #fff; line-height: 1.45; }
+.sdet-requirements-screen__finding { display: flex; gap: 8px; align-items: flex-start; margin: 5px 0; padding: 8px 7px; border: 1px solid #e5e1eb; background: #fff; color: #526073; font-size: 11px; }
+.sdet-requirements-screen__finding b { padding: 3px 5px; color: #ae7e31; background: #fff6e5; font-size: 9px; white-space: nowrap; }
+.sdet-requirements-screen__analysis-button { width: 100%; margin-top: 13px; padding: 10px; border: 0; background: #456d98; color: #fff; font-weight: 800; }
+.sdet-requirements-screen__analysis-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+.sdet-requirements-screen__analysis-actions button { padding: 8px 4px; border: 1px solid #d6d0e1; background: #fff; color: #4d4267; font-size: 10px; }
+.sdet-requirements-screen__fallback { display: flex; gap: 8px; margin: 10px 18px; padding: 9px; border: 1px solid #edd9a7; background: #fff8e9; color: #876629; }
+.sdet-requirements-screen__fallback small { display: block; margin-top: 3px; }
+.sdet-requirements-screen__floating-refresh { position: fixed; right: 14px; bottom: 14px; display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid #ccd4dd; background: #fff; color: #527da7; }
+.sdet-requirements-screen__spin { animation: sdet-requirements-spin .8s linear infinite; }
+.sdet-amber-color {
+    background-color: #FFBF00!important;
+    color: #000 !important;
+    font-weight: 500 !important;
+    cursor: not-allowed !important;
+}
+@keyframes sdet-requirements-spin { to { transform: rotate(360deg); } }
+@media (max-width: 1200px) { .sdet-requirements-screen__workspace { grid-template-columns: 245px minmax(390px, 1fr); } .sdet-requirements-screen__analysis { grid-column: 1 / -1; height: auto; border-top: 1px solid #dddbe4; border-left: 0; max-height: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; } .sdet-requirements-screen__analysis-title, .sdet-requirements-screen__accepted, .sdet-requirements-screen__analysis-button, .sdet-requirements-screen__analysis-actions { grid-column: 1 / -1; } }
+@media (max-width: 760px) { .sdet-requirements-screen { overflow-y: auto; } .sdet-requirements-screen__topbar { align-items: flex-start; flex-direction: column; } .sdet-requirements-screen__actions { flex-wrap: wrap; } .sdet-requirements-screen__workspace { display: block; flex: none; } .sdet-requirements-screen__list-panel { height: 330px; max-height: 330px; border-right: 0; border-bottom: 1px solid #d9dde2; } .sdet-requirements-screen__detail { height: auto; max-height: none; overflow: visible; } .sdet-requirements-screen__analysis { display: block; } .sdet-requirements-screen__detail-heading { flex-direction: column; } .sdet-requirements-screen__scores { text-align: left; } .sdet-requirements-screen__tabs { gap: 12px; overflow-x: auto; } .sdet-requirements-screen__tabs button { white-space: nowrap; } }

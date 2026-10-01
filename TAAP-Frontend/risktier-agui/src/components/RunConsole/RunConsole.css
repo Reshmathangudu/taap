@@ -1,0 +1,160 @@
+/*
+  Same scoping pattern as the other three panels (see
+  TestSelectionReport.css for the full rationale): .rta-rc establishes a
+  container-query context sized to wherever Spider mounts this panel, and
+  .rta-rc-inner is what actually responds to that width.
+
+  Dark theme + connected-dot timeline / chat-bubble treatment lifted from
+  Main-html/Main.dc.html (a design-tool mockup — see that folder's README).
+  Only the visual language is borrowed; the actual data/flow below is the
+  real sequential 6-agent release pipeline, not the mockup's PR-triggered,
+  4-parallel-agent scenario.
+*/
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+.rta-rc {
+  --bg: #0a0c10; --panel: #121620; --panel2: #171c28; --panel3: #1c2230;
+  --border: #262e3d; --bordersoft: #1c2230;
+  --t1: #eef1f5; --t2: #9aa5b4; --t3: #626d7d;
+  --accent: #6f6ef2; --accent-fg: #fff;
+  --ok: #34d399; --ok-bg: rgba(52, 211, 153, .12);
+  --run: #f5a524; --run-bg: rgba(245, 165, 36, .14);
+  --pend: #4b5768; --pend-bg: rgba(75, 87, 104, .10);
+  --fail: #f04438; --fail-bg: rgba(240, 68, 56, .14);
+  --radius: 10px;
+  container-type: inline-size;
+  background: var(--bg);
+}
+.rta-rc * { box-sizing: border-box; }
+.rta-rc-inner {
+  color: var(--t1);
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px; line-height: 1.5; padding: 22px 26px; max-width: 960px; margin: 0 auto;
+}
+.rta-rc-inner .mono { font-family: "IBM Plex Mono", monospace; }
+
+@keyframes rta-rc-spin { to { transform: rotate(360deg); } }
+@keyframes rta-rc-blink { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+@keyframes rta-rc-pulse-dot { 0% { box-shadow: 0 0 0 0 rgba(245, 165, 36, .45); } 70% { box-shadow: 0 0 0 6px rgba(245, 165, 36, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 165, 36, 0); } }
+.rta-rc-inner .spin { animation: rta-rc-spin 1.1s linear infinite; display: inline-flex; }
+.rta-rc-inner .blink { animation: rta-rc-blink 1.3s ease-in-out infinite; }
+
+.rta-rc-inner .rta-rc-topbar {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
+}
+.rta-rc-inner .rta-rc-brand { display: flex; align-items: center; gap: 10px; }
+.rta-rc-inner .rta-rc-brand-icon {
+  width: 28px; height: 28px; border-radius: 8px; background: rgba(111, 110, 242, .14);
+  color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.rta-rc-inner .rta-rc-brand-title { font-size: 14px; font-weight: 600; line-height: 1.2; }
+.rta-rc-inner .rta-rc-brand-subtitle { font-size: 11.5px; color: var(--t2); line-height: 1.2; }
+
+.rta-rc-inner .rta-rc-streambadge {
+  display: flex; align-items: center; gap: 7px; padding: 5px 11px; border-radius: 20px; font-size: 11.5px;
+  border: 1px solid var(--border); background: var(--panel3); color: var(--t3);
+}
+.rta-rc-inner .rta-rc-streambadge.live { border-color: rgba(245, 165, 36, .35); background: var(--run-bg); color: var(--run); }
+.rta-rc-inner .rta-rc-streamdot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.rta-rc-inner .rta-rc-streambadge.live .rta-rc-streamdot { animation: rta-rc-pulse-dot 1.8s ease-out infinite; }
+
+.rta-rc-inner .rta-rc-subtitle { font-size: 12.5px; color: var(--t2); margin: 0 0 18px; }
+
+.rta-rc-inner .rta-rc-body { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; margin-bottom: 14px; }
+
+.rta-rc-inner .rta-rc-transcript {
+  background: var(--panel); border: 1px solid var(--bordersoft); border-radius: 12px;
+  padding: 14px; height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+}
+.rta-rc-inner .rta-rc-msg { display: flex; gap: 10px; max-width: 92%; }
+.rta-rc-inner .rta-rc-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.rta-rc-inner .rta-rc-msg.bot { align-self: flex-start; }
+.rta-rc-inner .rta-rc-msg-avatar {
+  width: 24px; height: 24px; border-radius: 7px; background: rgba(111, 110, 242, .14); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+}
+.rta-rc-inner .rta-rc-msg-bubble { display: flex; flex-direction: column; }
+.rta-rc-inner .rta-rc-msg-text {
+  font-size: 12.5px; padding: 9px 12px; border-radius: 12px 12px 3px 12px; background: var(--panel2);
+  color: var(--t1); border: 1px solid var(--bordersoft); display: inline-block;
+  white-space: pre-wrap; max-width: 520px;
+}
+.rta-rc-inner .rta-rc-msg.user .rta-rc-msg-text { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); border-radius: 12px 12px 12px 3px; }
+.rta-rc-inner .rta-rc-msg.bot .rta-rc-msg-text { border-radius: 3px 12px 12px 12px; }
+.rta-rc-inner .rta-rc-msg.error .rta-rc-msg-text { border-radius: 3px 12px 12px 12px; background: var(--fail-bg); color: var(--fail); border-color: rgba(240, 68, 56, .35); }
+.rta-rc-inner .rta-rc-msg-time { font-size: 10px; color: var(--t3); margin-top: 3px; }
+.rta-rc-inner .rta-rc-msg.user .rta-rc-msg-time { text-align: right; }
+
+.rta-rc-inner .rta-rc-progresscard { background: var(--panel2); border: 1px solid var(--bordersoft); border-radius: 3px 12px 12px 12px; padding: 13px 15px; max-width: 460px; }
+.rta-rc-inner .rta-rc-progresshead { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--t1); }
+.rta-rc-inner .rta-rc-progresshead .spin { color: var(--run); }
+.rta-rc-inner .rta-rc-progressbar { margin-top: 11px; height: 6px; border-radius: 4px; background: var(--panel3); overflow: hidden; }
+.rta-rc-inner .rta-rc-progressfill { height: 100%; background: var(--run); border-radius: 4px; transition: width .3s ease; }
+.rta-rc-inner .rta-rc-progresscaption { margin-top: 7px; font-size: 11px; color: var(--t2); }
+.rta-rc-inner .rta-rc-log {
+  margin-top: 12px; background: var(--bg); border: 1px solid var(--bordersoft); border-radius: 8px;
+  padding: 9px 11px; font-size: 11px; color: var(--t2); line-height: 1.7; max-height: 110px; overflow-y: auto;
+}
+.rta-rc-inner .rta-rc-log .running { color: var(--run); }
+
+.rta-rc-inner .rta-rc-status {
+  background: var(--panel); border: 1px solid var(--bordersoft); border-radius: 12px; padding: 16px;
+  height: 360px; overflow-y: auto;
+}
+.rta-rc-inner .rta-rc-status h3 { font-size: 13.5px; font-weight: 600; margin: 0; color: var(--t1); }
+.rta-rc-inner .rta-rc-status-sub { font-size: 11.5px; color: var(--t2); margin: 3px 0 14px; }
+.rta-rc-inner .rta-rc-status-empty { font-size: 12.5px; color: var(--t3); margin: 0; }
+
+.rta-rc-inner .rta-rc-timeline-row { display: flex; gap: 11px; }
+.rta-rc-inner .rta-rc-timeline-dotcol { display: flex; flex-direction: column; align-items: center; width: 24px; flex-shrink: 0; }
+.rta-rc-inner .rta-rc-dot {
+  width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; border: 1px solid var(--border); background: var(--panel2); color: var(--t3);
+}
+.rta-rc-inner .rta-rc-dot.dot-pending { border: 1.5px dashed var(--pend); background: var(--panel2); color: var(--pend); }
+.rta-rc-inner .rta-rc-dot.dot-running { border-color: rgba(245, 165, 36, .45); background: var(--run-bg); color: var(--run); }
+.rta-rc-inner .rta-rc-dot.dot-finished { border-color: rgba(52, 211, 153, .4); background: var(--ok-bg); color: var(--ok); }
+.rta-rc-inner .rta-rc-dot.dot-failed { border-color: rgba(240, 68, 56, .4); background: var(--fail-bg); color: var(--fail); }
+.rta-rc-inner .rta-rc-connector { width: 2px; flex: 1; min-height: 16px; margin-top: 2px; background: var(--bordersoft); }
+.rta-rc-inner .rta-rc-connector.connector-finished { background: rgba(52, 211, 153, .3); }
+.rta-rc-inner .rta-rc-connector.connector-running { background: rgba(245, 165, 36, .3); }
+.rta-rc-inner .rta-rc-connector.connector-failed { background: rgba(240, 68, 56, .3); }
+.rta-rc-inner .rta-rc-timeline-body { flex: 1; padding-bottom: 16px; min-width: 0; }
+.rta-rc-inner .rta-rc-timeline-label { font-size: 13px; font-weight: 500; color: var(--t1); }
+.rta-rc-inner .rta-rc-timeline-caption { font-size: 11.5px; margin-top: 3px; }
+.rta-rc-inner .rta-rc-timeline-caption.caption-pending { color: var(--t2); }
+.rta-rc-inner .rta-rc-timeline-caption.caption-running { color: var(--run); }
+.rta-rc-inner .rta-rc-timeline-caption.caption-finished { color: var(--ok); }
+.rta-rc-inner .rta-rc-timeline-caption.caption-failed { color: var(--fail); }
+.rta-rc-inner .rta-rc-timeline-detail { font-size: 11px; color: var(--t3); margin-top: 2px; }
+
+.rta-rc-inner .rta-rc-inputrow {
+  display: flex; align-items: center; gap: 10px; background: var(--panel2); border: 1px solid var(--border);
+  border-radius: 11px; padding: 6px 6px 6px 14px;
+}
+.rta-rc-inner .rta-rc-input {
+  flex: 1; padding: 8px 0; border: none; background: transparent; font-size: 13px; font-family: inherit;
+  color: var(--t1);
+}
+.rta-rc-inner .rta-rc-input::placeholder { color: var(--t3); }
+.rta-rc-inner .rta-rc-input:focus { outline: none; }
+.rta-rc-inner .rta-rc-input:disabled { opacity: .6; }
+.rta-rc-inner .rta-rc-sendbtn {
+  width: 34px; height: 34px; border-radius: 9px; background: var(--panel3); border: 1px solid var(--border);
+  color: var(--t2); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+}
+.rta-rc-inner .rta-rc-sendbtn:not(:disabled):hover { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.rta-rc-inner .rta-rc-sendbtn:disabled { opacity: .5; cursor: not-allowed; }
+
+.rta-rc-inner .rta-rc-askrow { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--bordersoft); }
+.rta-rc-inner .rta-rc-asklabel { display: block; font-size: 11.5px; font-weight: 600; color: var(--t2); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
+.rta-rc-inner .rta-rc-askhint { display: block; font-size: 11px; color: var(--t3); margin-top: 7px; }
+
+/* Panel narrower than ~640px: chat and status stack instead of sitting
+   side by side, same reasoning as the other three panels' breakpoints —
+   this responds to the panel's own width, not the browser viewport. */
+@container (max-width: 640px) {
+  .rta-rc-inner { padding: 16px; }
+  .rta-rc-inner .rta-rc-body { grid-template-columns: 1fr; }
+  .rta-rc-inner .rta-rc-transcript, .rta-rc-inner .rta-rc-status { height: 260px; }
+}

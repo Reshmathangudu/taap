@@ -1,0 +1,457 @@
+.sdet-script-generation__agent-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 13px 14px;
+  border: 1px solid #d7e1ed;
+  background: #f5f8fb;
+  color: #40566f;
+}
+
+.sdet-script-generation__agent-banner svg {
+  flex: 0 0 auto;
+  color: #4f759d;
+}
+
+.sdet-script-generation__agent-banner strong,
+.sdet-script-generation__agent-banner span {
+  display: block;
+}
+
+.sdet-script-generation__agent-banner strong {
+  color: #24364c;
+  font-size: 13px;
+}
+
+.sdet-script-generation__agent-banner span {
+  margin-top: 3px;
+  color: #657385;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.sdet-script-generation__draft-layout {
+  display: grid;
+  grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.sdet-script-generation__draft-list {
+  display: grid;
+  gap: 8px;
+}
+
+.sdet-script-generation__draft-item {
+  display: grid;
+  gap: 5px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d9dde3;
+  background: #fff;
+  color: #516173;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sdet-script-generation__draft-item:hover,
+.sdet-script-generation__draft-item.is-active {
+  border-color: #6f91b6;
+  background: #f4f8fc;
+}
+
+.sdet-script-generation__draft-item strong {
+  color: #24364c;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.sdet-script-generation__draft-item span {
+  font-size: 12px;
+}
+
+.sdet-script-generation__draft-id {
+  color: #416a96;
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-weight: 700;
+}
+
+.sdet-script-generation__draft-meta {
+  color: #718095;
+}
+
+.sdet-script-generation__draft-detail {
+  min-width: 0;
+  border: 1px solid #d9dde3;
+  background: #fff;
+}
+
+.sdet-script-generation__draft-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid #e1e2e5;
+}
+
+.sdet-script-generation__draft-head h2 {
+  margin: 4px 0 7px;
+  color: #1f2a3a;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.sdet-script-generation__draft-head p {
+  margin: 0;
+  color: #5b6878;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.sdet-script-generation__eyebrow {
+  color: #718095;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.sdet-script-generation__draft-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.sdet-script-generation__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 18px 0;
+}
+
+.sdet-script-generation__summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 16px 18px 0;
+  border-top: 1px solid #e1e2e5;
+  border-left: 1px solid #e1e2e5;
+}
+
+.sdet-script-generation__summary-grid div {
+  min-width: 0;
+  padding: 11px 12px;
+  border-right: 1px solid #e1e2e5;
+  border-bottom: 1px solid #e1e2e5;
+}
+
+.sdet-script-generation__summary-grid dt,
+.sdet-script-generation__section h3 {
+  margin: 0;
+  color: #718095;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.sdet-script-generation__summary-grid dd {
+  margin: 5px 0 0;
+  color: #24364c;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.sdet-script-generation__section {
+  padding: 18px;
+  border-top: 1px solid #edf0f3;
+}
+
+.sdet-script-generation__section p {
+  margin: 8px 0 0;
+  color: #4b596b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.sdet-script-generation__section > span {
+  display: block;
+  margin-top: 8px;
+  color: #718095;
+  font-size: 12px;
+}
+
+.sdet-script-generation__context-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.sdet-script-generation__context-grid div {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #e1e2e5;
+  background: #fbfcfd;
+}
+
+.sdet-script-generation__context-grid span,
+.sdet-script-generation__step b {
+  color: #718095;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.sdet-script-generation__context-grid strong {
+  display: block;
+  margin-top: 5px;
+  color: #24364c;
+  font-size: 12px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.sdet-script-generation__list {
+  display: grid;
+  gap: 7px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sdet-script-generation__list li {
+  position: relative;
+  padding-left: 16px;
+  color: #4b596b;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.sdet-script-generation__list li::before {
+  position: absolute;
+  left: 0;
+  top: .55em;
+  width: 6px;
+  height: 6px;
+  background: #6f91b6;
+  content: "";
+}
+
+.sdet-script-generation__list--gaps li::before {
+  background: #c29335;
+}
+
+.sdet-script-generation__mini-table-wrap {
+  overflow-x: auto;
+  margin-top: 10px;
+  border: 1px solid #e1e2e5;
+}
+
+.sdet-script-generation__mini-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+}
+
+.sdet-script-generation__mini-table th,
+.sdet-script-generation__mini-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #edf0f3;
+  color: #4b596b;
+  font-size: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.sdet-script-generation__mini-table th {
+  color: #718095;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.sdet-script-generation__mini-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.sdet-script-generation__steps {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.sdet-script-generation__expected-outcome {
+  padding: 10px 12px;
+  border-left: 3px solid #6f91b6;
+  background: #f7fafc;
+}
+
+.sdet-script-generation__step {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e1e2e5;
+  background: #fbfcfd;
+}
+
+.sdet-script-generation__step > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: #e6eef8;
+  color: #35506f;
+  font-weight: 700;
+}
+
+.sdet-script-generation__step strong {
+  display: block;
+  color: #24364c;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.sdet-script-generation__step p {
+  margin-top: 5px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.sdet-script-generation__step b {
+  margin-right: 5px;
+}
+
+.sdet-script-generation__feature-script {
+  max-height: 520px;
+  overflow: auto;
+  margin: 10px 0 0;
+  padding: 16px;
+  border: 1px solid #d9dde3;
+  background: #101923;
+  color: #e5edf6;
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.sdet-script-generation__ready {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #2f6b45 !important;
+  font-weight: 600;
+}
+
+.sdet-script-generation__empty {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 20px;
+  border: 1px dashed #ccd3dc;
+  background: #fafbfc;
+  color: #718095;
+  text-align: center;
+}
+
+.sdet-script-generation__empty strong {
+  color: #334155;
+}
+
+.sdet-script-generation__empty span {
+  max-width: 360px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.sdet-script-generation__empty--inline {
+  min-height: 160px;
+}
+
+.sdet-script-generation__table-wrap {
+  overflow: auto;
+  border: 1px solid #d6d8dc;
+  background: #fff;
+}
+
+.sdet-script-generation__table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.sdet-script-generation__table th {
+  height: 42px;
+  padding: 0 12px;
+  border-bottom: 1px solid #dadde2;
+  color: #718095;
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-align: left;
+}
+
+.sdet-script-generation__table td {
+  padding: 12px;
+  border-bottom: 1px solid #e1e2e5;
+  color: #5d6878;
+  vertical-align: middle;
+}
+
+.sdet-script-generation__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.sdet-script-generation__table td:nth-child(2) strong,
+.sdet-script-generation__table td:nth-child(2) span {
+  display: block;
+}
+
+.sdet-script-generation__table td:nth-child(2) strong {
+  color: #24364c;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.sdet-script-generation__table td:nth-child(2) span {
+  margin-top: 4px;
+  color: #788697;
+  font-size: 11px;
+}
+
+@media (max-width: 1100px) {
+  .sdet-script-generation__draft-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sdet-script-generation__draft-list {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .sdet-script-generation__draft-head {
+    flex-direction: column;
+  }
+
+  .sdet-script-generation__draft-actions {
+    justify-content: flex-start;
+  }
+
+  .sdet-script-generation__summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sdet-script-generation__context-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,763 @@
+{
+  "_readme": "Data for the Manual QE Workflow page. Stage titles, task copy and action buttons follow the approved design mockups. Each stage carries a `source` marker: 'jira' = real data that exists in the SCRUM project today, 'partial' = partly real / partly invented, 'mock' = no source anywhere, 'empty' = intentionally left blank for now. Jira keys used in the panels (SCRUM-4 .. SCRUM-31) are genuine, so those rows line up with the real project once live wiring replaces them. Every task opens a workspace detail view; `evidence` below is the default attachment set shown there, and a task may override it with its own `evidence` array.",
+
+  "defaultEvidence": [
+    { "id": "rationale", "label": "Agent rationale & inputs" },
+    { "id": "bundle", "label": "Evidence bundle" },
+    { "id": "citations", "label": "Source links & citations" }
+  ],
+
+  "reviewNotesPlaceholder": "Add notes for the audit trail — rejections feed the agent's v2 draft.",
+  "decisionNote": "recorded to the audit trail with your identity and timestamp.",
+
+  "context": {
+    "project": "TAAP",
+    "projectKey": "SCRUM",
+    "release": "Release 25.4",
+    "sprint": "SCRUM Sprint 0",
+    "environment": "QA",
+    "fetchedAt": "07:12",
+    "integrations": [
+      { "id": "jira", "label": "Jira", "connected": true },
+      { "id": "xray", "label": "Xray", "connected": false },
+      { "id": "testrail", "label": "TestRail", "connected": false },
+      { "id": "github", "label": "GitHub", "connected": false },
+      { "id": "jenkins", "label": "Jenkins", "connected": false }
+    ]
+  },
+
+  "stages": [
+    {
+      "id": "select-work",
+      "index": 1,
+      "label": "Select work",
+      "title": "Select work",
+      "completed": 0,
+      "total": 1,
+      "source": "jira",
+      "agentBanner": "Backlog Agent pulled the 11 stories with linked docs, acceptance criteria and past runs via the Integration Hub, and ranked them by risk.",
+      "tasks": [
+        {
+          "id": "view-backlog",
+          "title": "View assigned backlog",
+          "status": "agent-handled",
+          "you": "Pick release, sprint, Jira story or an ad-hoc request — 11 stories assigned this sprint.",
+          "agent": "Pulled stories, linked epics, acceptance criteria and past runs via the Integration Hub.",
+          "actions": []
+        },
+        {
+          "id": "prioritize",
+          "title": "Prioritize work",
+          "status": "awaiting-review",
+          "you": "Reorder the queue and flag urgent items.",
+          "agent": "Suggested priority from risk score, due dates and defect history — US-101 and US-401 moved first.",
+          "actions": [
+            { "id": "reorder", "label": "Reorder", "variant": "secondary" },
+            { "id": "approve-order", "label": "Approve order", "variant": "primary" }
+          ]
+        }
+      ],
+      "panels": [
+        {
+          "title": "Sprint backlog",
+          "type": "table",
+          "columns": [
+            { "key": "key", "label": "Key" },
+            { "key": "ref", "label": "Story" },
+            { "key": "epic", "label": "Epic" },
+            { "key": "status", "label": "Status", "as": "status" },
+            { "key": "priority", "label": "Priority" },
+            { "key": "cases", "label": "Cases", "align": "right" },
+            { "key": "risk", "label": "Risk", "align": "right" }
+          ],
+          "rows": [
+            { "key": "SCRUM-10", "ref": "US-101", "epic": "EP-1001", "status": "To Do", "priority": "Medium", "cases": 10, "risk": 83.2 },
+            { "key": "SCRUM-25", "ref": "US-401", "epic": "EP-1004", "status": "To Do", "priority": "Medium", "cases": 1, "risk": 79.2 },
+            { "key": "SCRUM-24", "ref": "US-302", "epic": "EP-1003", "status": "To Do", "priority": "Medium", "cases": 1, "risk": 64.2 },
+            { "key": "SCRUM-11", "ref": "US-102", "epic": "EP-1001", "status": "To Do", "priority": "Medium", "cases": 0, "risk": 58.0 },
+            { "key": "SCRUM-12", "ref": "US-201", "epic": "EP-1002", "status": "To Do", "priority": "Medium", "cases": 0, "risk": 55.4 },
+            { "key": "SCRUM-22", "ref": "US-202", "epic": "EP-1002", "status": "To Do", "priority": "Medium", "cases": 0, "risk": 51.1 }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "req-analysis",
+      "index": 2,
+      "label": "Req analysis",
+      "title": "Requirement analysis",
+      "completed": 0,
+      "total": 3,
+      "source": "partial",
+      "agentBanner": "Analysis Agent read US-101, BRD section 4.2 and the promo API spec, and extracted testable conditions with source citations.",
+      "tasks": [
+        {
+          "id": "requirement-digest",
+          "title": "Requirement digest",
+          "status": "awaiting-review",
+          "you": "Read the 6 extracted testable conditions; open source-paragraph links to verify each.",
+          "agent": "Extracted conditions from story, BRD and API spec with citations back to the source paragraph.",
+          "actions": [
+            { "id": "edit", "label": "Edit", "variant": "secondary" },
+            { "id": "approve", "label": "Approve", "variant": "primary" },
+            { "id": "reject", "label": "Reject", "variant": "danger" }
+          ]
+        },
+        {
+          "id": "ambiguity-gap",
+          "title": "Ambiguity & gap detection",
+          "status": "awaiting-review",
+          "you": "Confirm or dismiss each flagged gap; raise clarifications to the BA from here.",
+          "agent": "Flagged 3 gaps — stacking rules for multiple codes, expiry timezone, rounding after conversion.",
+          "actions": [
+            { "id": "confirm", "label": "Confirm", "variant": "primary" },
+            { "id": "dismiss", "label": "Dismiss", "variant": "secondary" }
+          ]
+        },
+        {
+          "id": "impact-analysis",
+          "title": "Impact analysis",
+          "status": "awaiting-review",
+          "you": "Review the blast radius across modules before design starts.",
+          "agent": "Mapped 3 downstream epics touched by the change — EP-1002, EP-1003 and EP-1004.",
+          "actions": [{ "id": "approve-impact", "label": "Approve", "variant": "primary" }]
+        }
+      ],
+      "panels": [
+        {
+          "title": "Acceptance criteria",
+          "type": "table",
+          "columns": [
+            { "key": "id", "label": "ID" },
+            { "key": "story", "label": "Story" },
+            { "key": "text", "label": "Criterion", "wide": true },
+            { "key": "coverage", "label": "Coverage", "as": "status" }
+          ],
+          "rows": [
+            { "id": "AC-1", "story": "US-101", "text": "Guest user can complete checkout without an account.", "coverage": "Covered" },
+            { "id": "AC-2", "story": "US-101", "text": "Payment failure shows a retry prompt within 2 seconds.", "coverage": "Covered" },
+            { "id": "AC-3", "story": "US-102", "text": "Saved addresses appear in the delivery step.", "coverage": "Uncovered" },
+            { "id": "AC-4", "story": "US-201", "text": "Loyalty points apply before tax calculation.", "coverage": "Uncovered" },
+            { "id": "AC-5", "story": "US-401", "text": "Regulatory audit trail records every price override.", "coverage": "Covered" },
+            { "id": "AC-6", "story": "US-402", "text": "Refunds post back to the original payment method.", "coverage": "Uncovered" }
+          ]
+        },
+        {
+          "title": "Open clarifications",
+          "type": "table",
+          "columns": [
+            { "key": "id", "label": "ID" },
+            { "key": "story", "label": "Story" },
+            { "key": "question", "label": "Question", "wide": true },
+            { "key": "raisedBy", "label": "Raised by" },
+            { "key": "status", "label": "Status", "as": "status" }
+          ],
+          "rows": [
+            { "id": "Q-1", "story": "US-201", "question": "Do multiple promo codes stack, and in what order are they applied?", "raisedBy": "Analysis Agent", "status": "Open" },
+            { "id": "Q-2", "story": "US-201", "question": "Which timezone governs promo code expiry?", "raisedBy": "Analysis Agent", "status": "Open" },
+            { "id": "Q-3", "story": "US-101", "question": "Is rounding applied before or after currency conversion?", "raisedBy": "Ritik", "status": "Answered" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "planning",
+      "index": 3,
+      "label": "Planning",
+      "title": "Test planning & coverage",
+      "completed": 0,
+      "total": 4,
+      "source": "mock",
+      "agentBanner": "Planning Agent proposed a feature × test-type coverage matrix with risk weighting and an effort estimate that fits sprint capacity.",
+      "tasks": [
+        {
+          "id": "coverage-proposal",
+          "title": "Coverage proposal",
+          "status": "awaiting-review",
+          "you": "Review the matrix — functional, negative, boundary, E2E and regression per feature.",
+          "agent": "Proposed 50 scenarios across 6 stories with rationale and risk weighting per cell.",
+          "actions": [
+            { "id": "edit-counts", "label": "Edit counts", "variant": "secondary" },
+            { "id": "approve", "label": "Approve", "variant": "primary" },
+            { "id": "reject", "label": "Reject", "variant": "danger" }
+          ]
+        },
+        {
+          "id": "risk-prioritization",
+          "title": "Risk-based prioritization",
+          "status": "awaiting-review",
+          "you": "Adjust risk ratings where your domain knowledge differs.",
+          "agent": "Scored scenarios by business criticality, change size and defect history.",
+          "actions": [{ "id": "approve-ranking", "label": "Approve ranking", "variant": "primary" }]
+        },
+        {
+          "id": "regression-pack-selection",
+          "title": "Regression pack selection",
+          "status": "awaiting-review",
+          "you": "Approve the final pack and rule on retirement flags.",
+          "agent": "Selected 21 reusable cases from the Asset Repository; flagged 12 stale cases for retirement.",
+          "actions": [
+            { "id": "approve", "label": "Approve", "variant": "primary" },
+            { "id": "reject-retirements", "label": "Reject retirements", "variant": "danger" }
+          ]
+        },
+        {
+          "id": "estimation",
+          "title": "Estimation",
+          "status": "awaiting-review",
+          "you": "Confirm effort and schedule against capacity.",
+          "agent": "Estimated 34 hours from historical cycle times — fits the 110-hour team capacity.",
+          "actions": [
+            { "id": "edit", "label": "Edit", "variant": "secondary" },
+            { "id": "approve", "label": "Approve", "variant": "primary" }
+          ]
+        }
+      ],
+      "panels": [
+        {
+          "title": "Effort estimates",
+          "type": "stats",
+          "items": [
+            { "label": "Story points", "value": "21" },
+            { "label": "Test effort", "value": "34h" },
+            { "label": "Capacity", "value": "110h" },
+            { "label": "Risk buffer", "value": "2d" }
+          ]
+        },
+        {
+          "title": "Estimates by story",
+          "type": "table",
+          "columns": [
+            { "key": "key", "label": "Key" },
+            { "key": "ref", "label": "Story" },
+            { "key": "points", "label": "Points", "align": "right" },
+            { "key": "hours", "label": "Test hours", "align": "right" },
+            { "key": "confidence", "label": "Confidence", "as": "status" },
+            { "key": "basis", "label": "Basis", "wide": true }
+          ],
+          "rows": [
+            { "key": "SCRUM-10", "ref": "US-101", "points": 8, "hours": 12, "confidence": "Medium", "basis": "10 linked test cases" },
+            { "key": "SCRUM-11", "ref": "US-102", "points": 3, "hours": 5, "confidence": "Low", "basis": "No historical analogue" },
+            { "key": "SCRUM-12", "ref": "US-201", "points": 5, "hours": 8, "confidence": "Medium", "basis": "Similar to US-101" },
+            { "key": "SCRUM-25", "ref": "US-401", "points": 5, "hours": 9, "confidence": "High", "basis": "Regulatory checklist reused" }
+          ]
+        },
+        {
+          "title": "Team capacity",
+          "type": "table",
+          "columns": [
+            { "key": "name", "label": "Member" },
+            { "key": "role", "label": "Role" },
+            { "key": "available", "label": "Available", "align": "right" },
+            { "key": "allocated", "label": "Allocated", "align": "right" },
+            { "key": "stories", "label": "Stories" }
+          ],
+          "rows": [
+            { "name": "Ritik", "role": "QE Engineer", "available": "60h", "allocated": "21h", "stories": "US-101" },
+            { "name": "Sangam Rai", "role": "QE Engineer", "available": "50h", "allocated": "13h", "stories": "US-201, US-401" },
+            { "name": "Unassigned pool", "role": "—", "available": "0h", "allocated": "0h", "stories": "US-102, US-302" }
+          ]
+        },
+        {
+          "title": "Milestones",
+          "type": "table",
+          "columns": [
+            { "key": "label", "label": "Milestone" },
+            { "key": "date", "label": "Date" },
+            { "key": "status", "label": "Status", "as": "status" }
+          ],
+          "rows": [
+            { "label": "Test design complete", "date": "25 Sep 2026", "status": "On track" },
+            { "label": "Execution complete", "date": "01 Oct 2026", "status": "At risk" },
+            { "label": "Sign-off", "date": "03 Oct 2026", "status": "Not started" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "case-design",
+      "index": 4,
+      "label": "Case design",
+      "title": "Test case design",
+      "completed": 0,
+      "total": 3,
+      "source": "jira",
+      "agentBanner": "Test Design Agent generated 16 new cases for the 7 uncovered stories — 29 in total alongside the 13 already in Jira; publish is gated until every case is reviewed.",
+      "tasks": [
+        {
+          "id": "generated-cases",
+          "title": "Generated test cases",
+          "status": "awaiting-review",
+          "you": "Review the case table (ID, title, steps, data needs, priority, confidence); edit steps inline with tracked changes.",
+          "agent": "Generated 16 new cases with expected results, preconditions, tags and traceability links.",
+          "actions": [
+            { "id": "edit", "label": "Edit", "variant": "secondary" },
+            { "id": "approve", "label": "Approve", "variant": "primary" },
+            { "id": "reject", "label": "Reject", "variant": "danger" }
+          ]
+        },
+        {
+          "id": "negative-edge",
+          "title": "Negative & edge cases",
+          "status": "awaiting-review",
+          "you": "Add domain edge cases the agent missed.",
+          "agent": "Proposed 11 negative, boundary and exception paths for promo and payment flows.",
+          "actions": [
+            { "id": "edit", "label": "Edit", "variant": "secondary" },
+            { "id": "approve", "label": "Approve", "variant": "primary" },
+            { "id": "reject", "label": "Reject", "variant": "danger" }
+          ]
+        },
+        {
+          "id": "reusable-asset-save",
+          "title": "Reusable asset save",
+          "status": "awaiting-review",
+          "you": "Tag approved cases for reuse.",
+          "agent": "Stores approved cases with keywords in the Asset Repository.",
+          "actions": [{ "id": "approve-tags", "label": "Approve tags", "variant": "primary" }]
+        }
+      ],
+      "panels": [
+        {
+          "title": "Test cases in Jira",
+          "type": "table",
+          "columns": [
+            { "key": "key", "label": "Key" },
+            { "key": "ref", "label": "Case" },
+            { "key": "parent", "label": "Parent story" },
+            { "key": "type", "label": "Type" },
+            { "key": "status", "label": "Status", "as": "status" }
+          ],
+          "rows": [
+            { "key": "SCRUM-13", "ref": "TC-001", "parent": "SCRUM-10", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-14", "ref": "TC-002", "parent": "SCRUM-10", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-15", "ref": "TC-014", "parent": "SCRUM-10", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-16", "ref": "TC-015", "parent": "SCRUM-10", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-17", "ref": "TC-016", "parent": "SCRUM-10", "type": "Automated", "status": "To Do" },
+            { "key": "SCRUM-18", "ref": "TC-017", "parent": "SCRUM-10", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-19", "ref": "TC-018", "parent": "SCRUM-10", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-20", "ref": "TC-019", "parent": "SCRUM-10", "type": "Automated", "status": "To Do" },
+            { "key": "SCRUM-21", "ref": "TC-020", "parent": "SCRUM-10", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-28", "ref": "TC-026", "parent": "SCRUM-10", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-30", "ref": "TC-039", "parent": "SCRUM-24", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-31", "ref": "TC-040", "parent": "SCRUM-25", "type": "Manual", "status": "To Do" },
+            { "key": "SCRUM-4", "ref": "Subtask 2.1", "parent": "—", "type": "Manual", "status": "To Do" }
+          ]
+        },
+        {
+          "title": "Stories with no test cases",
+          "type": "table",
+          "columns": [
+            { "key": "key", "label": "Key" },
+            { "key": "ref", "label": "Story" },
+            { "key": "epic", "label": "Epic" },
+            { "key": "action", "label": "Suggested action", "wide": true }
+          ],
+          "rows": [
+            { "key": "SCRUM-11", "ref": "US-102", "epic": "EP-1001", "action": "Draft 2 cases from AC-3" },
+            { "key": "SCRUM-12", "ref": "US-201", "epic": "EP-1002", "action": "Draft 3 cases from AC-4" },
+            { "key": "SCRUM-22", "ref": "US-202", "epic": "EP-1002", "action": "Needs acceptance criteria first" },
+            { "key": "SCRUM-23", "ref": "US-301", "epic": "EP-1003", "action": "Needs acceptance criteria first" },
+            { "key": "SCRUM-26", "ref": "US-402", "epic": "EP-1004", "action": "Draft 2 cases from AC-6" },
+            { "key": "SCRUM-27", "ref": "US-501", "epic": "EP-1005", "action": "Out of scope this release" },
+            { "key": "SCRUM-29", "ref": "US-502", "epic": "EP-1005", "action": "Needs acceptance criteria first" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "data-env",
+      "index": 5,
+      "label": "Data & env",
+      "title": "Test data & environment readiness",
+      "completed": 0,
+      "total": 2,
+      "source": "mock",
+      "agentBanner": "Data Agent generated and masked datasets via the Test Data Vault; Sanity Agent verified QA on build 24.8.183.",
+      "tasks": [
+        {
+          "id": "data-requests",
+          "title": "Data requests",
+          "status": "awaiting-review",
+          "you": "Review proposed datasets; request variants — expired codes, multi-currency carts, gift-card guests.",
+          "agent": "Generated and masked data via the Test Data Vault; validated referential integrity.",
+          "actions": [{ "id": "approve-datasets", "label": "Approve datasets", "variant": "primary" }]
+        },
+        {
+          "id": "environment-check",
+          "title": "Environment check",
+          "status": "awaiting-review",
+          "you": "Check the readiness dashboard — build version, service health, stubs.",
+          "agent": "Verified QA on build 24.8.183, deployed payment stubs, flagged Staging as degraded.",
+          "actions": [
+            { "id": "acknowledge", "label": "Acknowledge", "variant": "primary" },
+            { "id": "request-fix", "label": "Request fix", "variant": "secondary" }
+          ]
+        }
+      ],
+      "panels": [
+        {
+          "title": "Environments",
+          "type": "table",
+          "columns": [
+            { "key": "name", "label": "Environment" },
+            { "key": "type", "label": "Type" },
+            { "key": "status", "label": "Status", "as": "status" },
+            { "key": "version", "label": "Build" },
+            { "key": "refreshed", "label": "Last refresh" },
+            { "key": "note", "label": "Note", "wide": true }
+          ],
+          "rows": [
+            { "name": "QA-1", "type": "QA", "status": "Busy", "version": "24.8.1-rc3", "refreshed": "20 Sep 22:00", "note": "Booked by Team Falcon until 24 Sep" },
+            { "name": "QA-2", "type": "QA", "status": "Available", "version": "24.8.183", "refreshed": "22 Sep 02:00", "note": "Free for the sprint window" },
+            { "name": "Staging", "type": "Staging", "status": "Down", "version": "24.7.9", "refreshed": "18 Sep 02:00", "note": "Degraded — DB restore in progress" }
+          ]
+        },
+        {
+          "title": "Test data sets",
+          "type": "table",
+          "columns": [
+            { "key": "name", "label": "Dataset" },
+            { "key": "records", "label": "Records", "align": "right" },
+            { "key": "masked", "label": "PII masked" },
+            { "key": "refreshed", "label": "Refreshed" },
+            { "key": "status", "label": "Status", "as": "status" },
+            { "key": "covers", "label": "Covers" }
+          ],
+          "rows": [
+            { "name": "Checkout golden set", "records": "12,400", "masked": "Yes", "refreshed": "22 Sep 02:15", "status": "Ready", "covers": "US-101" },
+            { "name": "Loyalty accounts", "records": "850", "masked": "Yes", "refreshed": "19 Sep 02:15", "status": "Stale", "covers": "US-201" },
+            { "name": "Payment failure simulators", "records": "24", "masked": "No", "refreshed": "21 Sep 11:00", "status": "Ready", "covers": "US-101" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "execution",
+      "index": 6,
+      "label": "Execution",
+      "title": "Execution",
+      "completed": 0,
+      "total": 4,
+      "source": "partial",
+      "agentBanner": "You execute; Execution Agent captures evidence on every step and runs the automatable regression subset in parallel.",
+      "tasks": [
+        {
+          "id": "guided-execution",
+          "title": "Guided manual execution",
+          "status": "agent-handled",
+          "you": "Step through cases marking Pass / Fail / Blocked per step — 5 of 13 runs done today.",
+          "agent": "Auto-captures screenshots, logs, API traces, timestamps and an environment snapshot per step.",
+          "actions": []
+        },
+        {
+          "id": "exploratory",
+          "title": "Exploratory session",
+          "status": "awaiting-review",
+          "you": "Run timed charter-based sessions with free-form notes.",
+          "agent": "Converted your notes into 4 structured findings; suggested a follow-up charter around promo edge cases.",
+          "actions": [{ "id": "approve-findings", "label": "Approve findings", "variant": "primary" }]
+        },
+        {
+          "id": "smoke-runs",
+          "title": "Smoke / sanity runs",
+          "status": "awaiting-review",
+          "you": "Trigger on each new build before starting.",
+          "agent": "Ran the smoke subset on build 24.8.183 — 9/9 green, ready to proceed.",
+          "actions": [{ "id": "acknowledge", "label": "Acknowledge", "variant": "primary" }]
+        },
+        {
+          "id": "regression-delegation",
+          "title": "Regression delegation",
+          "status": "awaiting-review",
+          "you": "Delegate the approved regression pack to the agent.",
+          "agent": "Executed the 2 automatable cases (TC-016, TC-019); returned results and flagged 11 manual-only cases back to you.",
+          "actions": [
+            { "id": "review-failures", "label": "Review failures", "variant": "secondary" },
+            { "id": "approve-results", "label": "Approve results", "variant": "primary" }
+          ]
+        },
+        {
+          "id": "blocked-case-handling",
+          "title": "Blocked-case handling",
+          "status": "awaiting-review",
+          "you": "Review unblock suggestions before escalating.",
+          "agent": "Diagnosed the TC-015 blocker as missing gift-card data; proposed a Data Agent provision.",
+          "actions": [
+            { "id": "accept", "label": "Accept", "variant": "primary" },
+            { "id": "escalate", "label": "Escalate", "variant": "danger" }
+          ]
+        }
+      ],
+      "panels": [
+        {
+          "title": "Run summary",
+          "type": "stats",
+          "items": [
+            { "label": "Total", "value": "13" },
+            { "label": "Passed", "value": "8", "tone": "good" },
+            { "label": "Failed", "value": "3", "tone": "bad" },
+            { "label": "Blocked", "value": "1", "tone": "warn" },
+            { "label": "Pass rate", "value": "61.5%" }
+          ]
+        },
+        {
+          "title": "Latest runs",
+          "type": "table",
+          "columns": [
+            { "key": "case", "label": "Case" },
+            { "key": "result", "label": "Result", "as": "status" },
+            { "key": "duration", "label": "Duration", "align": "right" },
+            { "key": "by", "label": "Executed by" },
+            { "key": "env", "label": "Env" },
+            { "key": "note", "label": "Failure", "wide": true }
+          ],
+          "rows": [
+            { "case": "TC-001", "result": "Pass", "duration": "42s", "by": "Ritik", "env": "QA-2", "note": "—" },
+            { "case": "TC-002", "result": "Fail", "duration": "38s", "by": "Ritik", "env": "QA-2", "note": "Expected retry prompt within 2s, observed 4.6s" },
+            { "case": "TC-014", "result": "Fail", "duration": "51s", "by": "Sangam Rai", "env": "QA-2", "note": "Timeout on payment gateway stub" },
+            { "case": "TC-015", "result": "Blocked", "duration": "—", "by": "Sangam Rai", "env": "QA-2", "note": "Blocked by BUG-802" },
+            { "case": "TC-016", "result": "Pass", "duration": "12s", "by": "CI", "env": "QA-2", "note": "—" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "defects",
+      "index": 7,
+      "label": "Defects",
+      "title": "Defect management",
+      "completed": 1,
+      "total": 4,
+      "source": "mock",
+      "agentBanner": "Defect Agent pre-fills every defect with repro, severity suggestion, evidence and a duplicate check; nothing reaches Jira without you.",
+      "tasks": [
+        {
+          "id": "defect-drafting",
+          "title": "Defect drafting",
+          "status": "awaiting-review",
+          "you": "Review the drafted defect on each failure before it is logged.",
+          "agent": "Pre-filled BUG-801 — summary, repro steps, severity suggestion, evidence, probable module, duplicate check.",
+          "actions": [
+            { "id": "edit", "label": "Edit", "variant": "secondary" },
+            { "id": "approve-log", "label": "Approve & log", "variant": "primary" },
+            { "id": "reject", "label": "Reject", "variant": "danger" }
+          ]
+        },
+        {
+          "id": "duplicate-match",
+          "title": "Duplicate & known-issue match",
+          "status": "awaiting-review",
+          "you": "Confirm or override the matches.",
+          "agent": "Matched BUG-799 against 2 closed defects at 0.71 similarity — likely new.",
+          "actions": [
+            { "id": "confirm", "label": "Confirm", "variant": "primary" },
+            { "id": "override", "label": "Override", "variant": "secondary" }
+          ]
+        },
+        {
+          "id": "retest-on-fix",
+          "title": "Retest on fix",
+          "status": "approved",
+          "you": "Execute the guided retest when a fix lands.",
+          "agent": "Detected the BUG-802 fix on build 24.8.183; queued the retest with data and environment prepared.",
+          "actions": []
+        },
+        {
+          "id": "severity-disputes",
+          "title": "Severity disputes",
+          "status": "awaiting-review",
+          "you": "Decide contested severity — a human decision.",
+          "agent": "Presented impact evidence both ways for BUG-799.",
+          "actions": [{ "id": "set-severity", "label": "Set severity", "variant": "secondary" }]
+        }
+      ],
+      "panels": [
+        {
+          "title": "Defect summary",
+          "type": "stats",
+          "items": [
+            { "label": "Total", "value": "3" },
+            { "label": "Critical", "value": "1", "tone": "bad" },
+            { "label": "High", "value": "1", "tone": "warn" },
+            { "label": "Duplicates", "value": "1" }
+          ]
+        },
+        {
+          "title": "Open defects",
+          "type": "table",
+          "columns": [
+            { "key": "key", "label": "Key" },
+            { "key": "title", "label": "Title", "wide": true },
+            { "key": "severity", "label": "Severity", "as": "status" },
+            { "key": "status", "label": "Status", "as": "status" },
+            { "key": "story", "label": "Story" },
+            { "key": "age", "label": "Age", "align": "right" }
+          ],
+          "rows": [
+            { "key": "BUG-801", "title": "Payment retry prompt exceeds 2s SLA", "severity": "High", "status": "Open", "story": "US-101", "age": "0d" },
+            { "key": "BUG-802", "title": "Checkout page 500s when loyalty applied", "severity": "Critical", "status": "In Progress", "story": "US-201", "age": "1d" },
+            { "key": "BUG-799", "title": "Retry prompt slow on payment failure", "severity": "Medium", "status": "Open", "story": "US-101", "age": "0d" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "traceability",
+      "index": 8,
+      "label": "Traceability",
+      "title": "Evidence & traceability",
+      "completed": 0,
+      "total": 2,
+      "source": "jira",
+      "agentBanner": "Traceability Agent maintains the requirement → case → run → defect chain automatically and compiles audit evidence per policy.",
+      "tasks": [
+        {
+          "id": "traceability-matrix",
+          "title": "Traceability matrix",
+          "status": "awaiting-review",
+          "you": "Review the chain; fix broken links.",
+          "agent": "Maintains the matrix automatically; flagged 1 orphan test case (SCRUM-4, no parent story) and 8 stories with no linked case.",
+          "actions": [{ "id": "approve-exceptions", "label": "Approve exceptions", "variant": "primary" }]
+        },
+        {
+          "id": "audit-pack",
+          "title": "Audit evidence pack",
+          "status": "awaiting-review",
+          "you": "Approve the compiled pack.",
+          "agent": "Compiled evidence for compliance-relevant checkout flows per the Governance & Audit policy.",
+          "actions": [{ "id": "approve-pack", "label": "Approve", "variant": "primary" }]
+        }
+      ],
+      "panels": [
+        {
+          "title": "Coverage",
+          "type": "stats",
+          "items": [
+            { "label": "Stories", "value": "11" },
+            { "label": "Covered", "value": "3", "tone": "good" },
+            { "label": "Uncovered", "value": "8", "tone": "bad" },
+            { "label": "Coverage", "value": "27.3%", "tone": "warn" }
+          ]
+        },
+        {
+          "title": "Epic → Story → Test case",
+          "type": "tree",
+          "nodes": [
+            { "label": "EP-1001", "key": "SCRUM-5", "children": [
+              { "label": "US-101", "key": "SCRUM-10", "cases": ["TC-001", "TC-002", "TC-014", "TC-015", "TC-016", "TC-017", "TC-018", "TC-019", "TC-020", "TC-026"] },
+              { "label": "US-102", "key": "SCRUM-11", "cases": [] }
+            ]},
+            { "label": "EP-1002", "key": "SCRUM-6", "children": [
+              { "label": "US-201", "key": "SCRUM-12", "cases": [] },
+              { "label": "US-202", "key": "SCRUM-22", "cases": [] }
+            ]},
+            { "label": "EP-1003", "key": "SCRUM-7", "children": [
+              { "label": "US-301", "key": "SCRUM-23", "cases": [] },
+              { "label": "US-302", "key": "SCRUM-24", "cases": ["TC-039"] }
+            ]},
+            { "label": "EP-1004", "key": "SCRUM-8", "children": [
+              { "label": "US-401", "key": "SCRUM-25", "cases": ["TC-040"] },
+              { "label": "US-402", "key": "SCRUM-26", "cases": [] }
+            ]},
+            { "label": "EP-1005", "key": "SCRUM-9", "children": [
+              { "label": "US-501", "key": "SCRUM-27", "cases": [] },
+              { "label": "US-502", "key": "SCRUM-29", "cases": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "reporting",
+      "index": 9,
+      "label": "Reporting",
+      "title": "Reporting",
+      "completed": 0,
+      "total": 3,
+      "source": "empty",
+      "agentBanner": "",
+      "emptyMessage": "Reporting will be wired to the Risk Tier agent on :4000. Nothing to show yet.",
+      "tasks": [],
+      "panels": []
+    },
+
+    {
+      "id": "closure",
+      "index": 10,
+      "label": "Closure",
+      "title": "Test closure",
+      "completed": 0,
+      "total": 2,
+      "source": "mock",
+      "agentBanner": "Closure Agent drafts the summary and proposes regression-pack changes from run history; you add lessons learned and sign off.",
+      "tasks": [
+        {
+          "id": "closure-report",
+          "title": "Closure report & lessons",
+          "status": "awaiting-review",
+          "you": "Review the draft; add lessons learned.",
+          "agent": "Drafted closure summary — coverage achieved, escaped-defect analysis, asset updates.",
+          "actions": [
+            { "id": "edit", "label": "Edit", "variant": "secondary" },
+            { "id": "approve", "label": "Approve", "variant": "primary" }
+          ]
+        },
+        {
+          "id": "regression-refresh",
+          "title": "Regression pack refresh",
+          "status": "awaiting-review",
+          "you": "Approve pack changes per case.",
+          "agent": "Promoted 9 new cases; proposed retiring 3 flaky ones based on run history.",
+          "actions": [
+            { "id": "approve", "label": "Approve", "variant": "primary" },
+            { "id": "reject-per-case", "label": "Reject per case", "variant": "danger" }
+          ]
+        }
+      ],
+      "panels": [
+        {
+          "title": "Exit criteria",
+          "type": "table",
+          "columns": [
+            { "key": "criterion", "label": "Criterion", "wide": true },
+            { "key": "target", "label": "Target" },
+            { "key": "actual", "label": "Actual" },
+            { "key": "met", "label": "Met", "as": "status" }
+          ],
+          "rows": [
+            { "criterion": "Must-test pass rate", "target": "100%", "actual": "61.5%", "met": "No" },
+            { "criterion": "No open Critical defects", "target": "0", "actual": "1", "met": "No" },
+            { "criterion": "Exclusion rate within cap", "target": "≤ 5%", "actual": "3.4%", "met": "Yes" },
+            { "criterion": "Traceability coverage", "target": "≥ 80%", "actual": "27.3%", "met": "No" },
+            { "criterion": "All exclusions signed off", "target": "5 of 5", "actual": "0 of 5", "met": "No" }
+          ]
+        },
+        {
+          "title": "Sign-offs",
+          "type": "table",
+          "columns": [
+            { "key": "role", "label": "Role" },
+            { "key": "name", "label": "Name" },
+            { "key": "scope", "label": "Scope", "wide": true },
+            { "key": "risk", "label": "Residual risk", "as": "status" },
+            { "key": "status", "label": "Status", "as": "status" }
+          ],
+          "rows": [
+            { "role": "QA Lead", "name": "Ritik", "scope": "5 exclusion candidates", "risk": "Low", "status": "Pending" },
+            { "role": "Release Manager", "name": "Sangam Rai", "scope": "Release readiness", "risk": "Medium", "status": "Pending" },
+            { "role": "Product Owner", "name": "Unassigned", "scope": "Business acceptance", "risk": "Low", "status": "Not required" }
+          ]
+        }
+      ]
+    }
+  ]
+}
