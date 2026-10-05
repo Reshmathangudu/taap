@@ -30,6 +30,42 @@ class ExistingTestCase(BaseModel):
     mapped_acceptance_criteria: list[str] = Field(default_factory=list)
 
 
+class SupplementalContext(BaseModel):
+    """Optional non-Jira context (HTML, audio, or a document) supplied by the user.
+
+    `content_base64` / `raw_html` carry the raw, untrusted source payload as
+    received from the client. Preprocessing (see `context_extraction.py`)
+    resolves these into `extracted_text` / `transcript` and MUST null out
+    `content_base64` / `raw_html` before this model is handed to the LLM.
+    """
+
+    source_type: Literal["NONE", "HTML", "AUDIO", "FILE"] = "NONE"
+
+    file_name: Optional[str] = None
+    mime_type: Optional[str] = None
+
+    content_base64: Optional[str] = None
+    raw_html: Optional[str] = None
+
+    extracted_text: Optional[str] = None
+    transcript: Optional[str] = None
+
+
+class GenerationConditions(BaseModel):
+    """UI toggles that gate which categories of new test cases may be generated.
+
+    These control ELIGIBILITY for generation, not `test_type` — a scenario
+    enabled by `negative_test_cases` may still be the best fit for e.g. a
+    STATE_TRANSITION test_type. Default to all-true so requests that omit
+    this field entirely (pre-existing Jira-only callers) keep the original,
+    unrestricted generation behavior.
+    """
+
+    positive_test_cases: bool = True
+    negative_test_cases: bool = True
+    boundary_conditions: bool = True
+
+
 class TestCaseGenerationInput(BaseModel):
     epic_key: Optional[str] = None
 
@@ -50,6 +86,14 @@ class TestCaseGenerationInput(BaseModel):
     linked_defects: list[str] = Field(default_factory=list)
 
     related_issues: list[str] = Field(default_factory=list)
+
+    supplemental_context: SupplementalContext = Field(
+        default_factory=SupplementalContext
+    )
+
+    generation_conditions: GenerationConditions = Field(
+        default_factory=GenerationConditions
+    )
 
 
 # -----------------------------

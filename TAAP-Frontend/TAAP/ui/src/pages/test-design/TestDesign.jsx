@@ -145,8 +145,7 @@ function TestCaseRow({ testCase, selected, onToggle, onOpen }) {
       <td><span className="automation-value"><span>{testCase.automation === "Candidate"}</span>{testCase.automation}</span></td>
       <td><StatusPill className={`status-pill--${testCase.review.toLowerCase().replace(" ", "-")}`}>{testCase.review}</StatusPill></td>
       {/* <td className="test-design__muted">- Not run</td> */}
-      <td><span className="test-design__owner"><UserRound size={14} />{testCase.owner || "Test Design Agent"}</span></td>
-      <td className="test-design__muted">{testCase.updated ? (testCase.source === "jira" && !Number.isNaN(Date.parse(testCase.updated)) ? new Date(testCase.updated).toLocaleString() : testCase.updated) : "Not provided"}</td>
+      <td>{testCase.type || "Not provided"}</td>
     </tr>
   );
 }
@@ -275,7 +274,7 @@ function SubmitReviewModal({ testCases, onCancel, onConfirm }) {
   );
 }
 
-export function TestDesign({ selectedRequirements, selectedSource, onPrepareTestData }) {
+export function TestDesign({ selectedRequirements, selectedSource, supplementalContext, generationConditions, onPrepareTestData }) {
   const [issueGroups, setIssueGroups] = useState(null);
   const [scopedCases, setScopedCases] = useState([]);
   const [scopeLoading, setScopeLoading] = useState(Boolean(selectedRequirements));
@@ -306,7 +305,11 @@ export function TestDesign({ selectedRequirements, selectedSource, onPrepareTest
       setOpenCase(null);
       setSubmitReviewCases(null);
       setActiveDataSet("cases");
-      generateTestCasesForRequirements(selectedRequirements, { signal: controller.signal })
+      generateTestCasesForRequirements(selectedRequirements, {
+        signal: controller.signal,
+        supplementalContext,
+        generationConditions
+      })
         .then(data => {
           if (!controller.signal.aborted) {
             setScopedCases(data.cases);
@@ -323,7 +326,7 @@ export function TestDesign({ selectedRequirements, selectedSource, onPrepareTest
       .then((data) => active && setIssueGroups(data))
       .catch((error) => active && setLoadError(error instanceof Error ? error.message : "Jira data unavailable"));
     return () => { active = false; };
-  }, [selectedRequirements, attempt]);
+  }, [selectedRequirements, attempt, supplementalContext, generationConditions]);
 
   useEffect(() => {
     if (!toastMessage) return undefined;
@@ -490,8 +493,7 @@ export function TestDesign({ selectedRequirements, selectedSource, onPrepareTest
                   <th>PRIORITY</th>
                   <th>AUTOMATION</th>
                   <th>REVIEW</th>
-                  <th>ASSIGNEE</th>
-                  <th>UPDATED</th>
+                  <th>CATEGORY</th>
                 </tr>
               </thead>
               <tbody>

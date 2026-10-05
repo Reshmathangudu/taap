@@ -5,8 +5,8 @@
   "type": "module",
   "main": "./src/index.js",
   "scripts": {
-    "fetch:jira": "node ./src/jira/fetch-snapshot.js",
-    "start": "node ./src/server.js"
+    "fetch:jira": "node --use-system-ca ./src/jira/fetch-snapshot.js",
+    "start": "node --use-system-ca ./src/server.js"
   },
   "exports": {
     ".": "./src/index.js",

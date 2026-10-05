@@ -45,7 +45,11 @@ export function createServiceLayerServer() {
 
       if (request.method === "POST" && requestUrl.pathname === "/api/agents/test-cases/generate") {
         const body = await readJsonBody(request);
-        writeJson(request, response, 200, await generateTestCasesFromRequirements({ requirements: body.requirements }));
+        writeJson(request, response, 200, await generateTestCasesFromRequirements({
+          requirements: body.requirements,
+          supplementalContext: body.supplemental_context,
+          generationConditions: body.generation_conditions
+        }));
         return;
       }
 

@@ -25,6 +25,18 @@ test("discovers the A2A agent card and maps generated test cases for selected re
     assert.equal(body.params.message.parts[0].kind, "text");
     assert.equal(context.story_key, "SCRUM-24");
     assert.deepEqual(context.acceptance_criteria, [{ id: "AC-1", text: "Remaining attempts are displayed." }]);
+    assert.deepEqual(context.supplemental_context, {
+      source_type: "HTML",
+      file_name: "otp-screen.html",
+      mime_type: "text/html",
+      content_base64: "PHA+UmVtYWluaW5nIGF0dGVtcHRzPC9wPg==",
+      raw_html: null
+    });
+    assert.deepEqual(context.generation_conditions, {
+      positive_test_cases: true,
+      negative_test_cases: false,
+      boundary_conditions: true
+    });
 
     return Response.json({
       result: {
@@ -71,6 +83,17 @@ test("discovers the A2A agent card and maps generated test cases for selected re
       priority: "High",
       acceptanceCriteria: ["Remaining attempts are displayed."]
     }],
+    supplementalContext: {
+      source_type: "HTML",
+      file_name: "otp-screen.html",
+      mime_type: "text/html",
+      content_base64: "PHA+UmVtYWluaW5nIGF0dGVtcHRzPC9wPg=="
+    },
+    generationConditions: {
+      positive_test_cases: true,
+      negative_test_cases: false,
+      boundary_conditions: true
+    },
     config: { baseUrl: "http://agent.local", timeoutMs: 120000 },
     now: new Date("2026-09-30T07:15:00Z")
   });
@@ -84,4 +107,59 @@ test("discovers the A2A agent card and maps generated test cases for selected re
   assert.equal(result.cases[0].owner, "test_case_generation_agent");
   assert.equal(result.cases[0].generatedDetails.final_expected_result, "Remaining attempts are shown.");
   assert.equal(requests.length, 2);
+});
+
+test("defaults supplemental_context to NONE and all generation_conditions to true when omitted (backward compatible)", async t => {
+  t.mock.method(globalThis, "fetch", async (url, options = {}) => {
+    if (String(url).endsWith("/.well-known/agent-card.json")) {
+      return Response.json({
+        name: "test_case_generation_agent",
+        supportedInterfaces: [{ url: "http://agent.local", protocolBinding: "JSONRPC", protocolVersion: "1.0" }]
+      });
+    }
+
+    const body = JSON.parse(options.body);
+    const context = JSON.parse(body.params.message.parts[0].text);
+
+    assert.deepEqual(context.supplemental_context, { source_type: "NONE" });
+    assert.deepEqual(context.generation_conditions, {
+      positive_test_cases: true,
+      negative_test_cases: true,
+      boundary_conditions: true
+    });
+
+    return Response.json({
+      result: {
+        task: {
+          status: { state: "TASK_STATE_COMPLETED" },
+          artifacts: [{
+            parts: [{
+              text: JSON.stringify({
+                story_key: "SCRUM-24",
+                requirement_summary: "Display remaining OTP attempts.",
+                coverage_analysis: [],
+                generated_test_cases: [],
+                clarifications_required: [],
+                generation_summary: "No gaps found."
+              })
+            }]
+          }]
+        }
+      }
+    });
+  });
+
+  const result = await generateTestCasesFromRequirements({
+    requirements: [{
+      key: "SCRUM-24",
+      type: "Story",
+      summary: "Display remaining OTP attempts",
+      description: "The user sees remaining attempts.",
+      acceptanceCriteria: ["Remaining attempts are displayed."]
+    }],
+    config: { baseUrl: "http://agent.local", timeoutMs: 120000 },
+    now: new Date("2026-09-30T07:15:00Z")
+  });
+
+  assert.equal(result.source, "a2a");
 });

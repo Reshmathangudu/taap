@@ -487,6 +487,19 @@ const INPUT_SCOPE_OPTIONS = [
   { id: "file", label: "File", accept: ".pdf,.doc,.docx,.txt,.csv,.xlsx,.json" }
 ];
 
+const INPUT_SCOPE_SOURCE_TYPE = { html: "HTML", audio: "AUDIO", file: "FILE" };
+
+async function fileToBase64(file) {
+  const buffer = await file.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+  const chunkSize = 0x8000;
+  let binary = "";
+  for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+  }
+  return window.btoa(binary);
+}
+
 const TEST_CASE_CONDITION_OPTIONS = [
   { id: "boundary", label: "Boundary conditions", detail: "Exercise minimum, maximum and edge values." },
   { id: "negative", label: "Negative test cases", detail: "Cover invalid input, rejected actions and failure states." },
@@ -541,7 +554,7 @@ function InputScopeDialog({
                         accept={option.accept}
                         onChange={(event) => onScopeFileChange(option.id, event.target.files?.[0] ?? null)}
                       />
-                      {scopeFiles[option.id] && <em>{scopeFiles[option.id]}</em>}
+                      {scopeFiles[option.id]?.name && <em>{scopeFiles[option.id].name}</em>}
                     </span>
                   )}
                 </label>
@@ -626,7 +639,8 @@ export function RequirementsScreen({ onCreateTestCases }) {
   const isJira = payload?.source === "jira";
   const selected = requirements.find((requirement) => requirement.key === selectedKey) || requirements[0];
   const detailRequirement = selected;
-  const testCaseSelection = testDesignRequirements(buildRequirements(payload), checkedKeys, selected);
+  const allRequirements = useMemo(() => buildRequirements(payload), [payload]);
+  const testCaseSelection = testDesignRequirements(allRequirements, checkedKeys, selected);
 
   function openInputScopeDialog() {
     if (!testCaseSelection.length) return;
@@ -637,18 +651,55 @@ export function RequirementsScreen({ onCreateTestCases }) {
     setInputScopes({ html: scope === "html", audio: scope === "audio", file: scope === "file" });
   }
 
-  function updateScopeFile(scope, file) {
-    setScopeFiles((current) => ({ ...current, [scope]: file?.name || "" }));
+  async function updateScopeFile(scope, file) {
+    if (!file) {
+      setScopeFiles((current) => ({ ...current, [scope]: null }));
+      return;
+    }
+
+    try {
+      const base64 = await fileToBase64(file);
+      setScopeFiles((current) => ({
+        ...current,
+        [scope]: { name: file.name, mimeType: file.type || "", base64 }
+      }));
+    } catch {
+      setScopeFiles((current) => ({ ...current, [scope]: null }));
+    }
   }
 
   function toggleTestCaseCondition(condition) {
     setTestCaseConditions((current) => ({ ...current, [condition]: !current[condition] }));
   }
 
+  const activeInputScope = Object.keys(inputScopes).find((scope) => inputScopes[scope]);
+  const activeScopeFile = activeInputScope ? scopeFiles[activeInputScope] : null;
+
+  function buildSupplementalContext() {
+    if (!activeInputScope || !activeScopeFile) {
+      return { source_type: "NONE" };
+    }
+
+    return {
+      source_type: INPUT_SCOPE_SOURCE_TYPE[activeInputScope],
+      file_name: activeScopeFile.name,
+      mime_type: activeScopeFile.mimeType,
+      content_base64: activeScopeFile.base64
+    };
+  }
+
+  function buildGenerationConditions() {
+    return {
+      positive_test_cases: testCaseConditions.positive,
+      negative_test_cases: testCaseConditions.negative,
+      boundary_conditions: testCaseConditions.boundary
+    };
+  }
+
   function submitInputScope() {
-    if (!onCreateTestCases || !testCaseSelection.length || !Object.values(inputScopes).some(Boolean) || !Object.values(testCaseConditions).some(Boolean)) return;
+    if (!onCreateTestCases || !testCaseSelection.length || !Object.values(testCaseConditions).some(Boolean)) return;
     setShowInputScope(false);
-    onCreateTestCases(testCaseSelection, payload?.source);
+    onCreateTestCases(testCaseSelection, payload?.source, buildSupplementalContext(), buildGenerationConditions());
   }
 
   if (!selected) {
@@ -728,12 +779,10 @@ export function RequirementsScreen({ onCreateTestCases }) {
                 selected={item.key === selected.key}
                 isEpic={item.type.toLowerCase() === "epic"}
                 checked={checkedKeys.includes(item.key)}
-                onToggle={(key) => {
+                onToggle={["story", "user story"].includes(item.type.toLowerCase()) ? (key) => {
                   setDetailMode("details");
-                  setCheckedKeys((keys) =>
-                    keys.includes(key) ? keys.filter((selectedKey) => selectedKey !== key) : [...keys, key]
-                  );
-                }}
+                  setCheckedKeys((keys) => keys.includes(key) ? [] : [key]);
+                } : undefined}
                 onSelect={(value) => {
                   setSelectedKey(value.key);
                   setDetailMode("details");
@@ -826,7 +875,7 @@ export function RequirementsScreen({ onCreateTestCases }) {
           inputScopes={inputScopes}
           scopeFiles={scopeFiles}
           testCaseConditions={testCaseConditions}
-          canSubmit={Object.values(inputScopes).some(Boolean) && Object.values(testCaseConditions).some(Boolean)}
+          canSubmit={Object.values(testCaseConditions).some(Boolean)}
           onScopeToggle={toggleInputScope}
           onScopeFileChange={updateScopeFile}
           onConditionToggle={toggleTestCaseCondition}

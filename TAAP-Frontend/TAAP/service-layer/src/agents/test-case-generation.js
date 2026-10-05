@@ -16,7 +16,7 @@ export function readTestCaseAgentConfig(env = process.env) {
   };
 }
 
-export async function generateTestCasesFromRequirements({ requirements, config = readTestCaseAgentConfig(), now = new Date() } = {}) {
+export async function generateTestCasesFromRequirements({ requirements, supplementalContext, generationConditions, config = readTestCaseAgentConfig(), now = new Date() } = {}) {
   const stories = flattenRequirementsToStories(requirements);
 
   if (!stories.length) {
@@ -27,7 +27,7 @@ export async function generateTestCasesFromRequirements({ requirements, config =
   const results = [];
 
   for (const story of stories) {
-    const context = buildAgentContext(story);
+    const context = buildAgentContext(story, supplementalContext, generationConditions);
     const result = await callA2AAgent(context, { ...config, agentCard });
     results.push(result);
   }
@@ -46,11 +46,11 @@ export async function generateTestCasesFromRequirements({ requirements, config =
   };
 }
 
-export async function generateTestCasesForRequirements(requirements, { signal } = {}) {
+export async function generateTestCasesForRequirements(requirements, { signal, supplementalContext, generationConditions } = {}) {
   return fetchFromServiceLayer("/api/agents/test-cases/generate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ requirements }),
+    body: JSON.stringify({ requirements, supplemental_context: supplementalContext, generation_conditions: generationConditions }),
     signal
   });
 }
@@ -81,7 +81,7 @@ function flattenRequirementsToStories(requirements = []) {
   return stories;
 }
 
-function buildAgentContext(story) {
+function buildAgentContext(story, supplementalContext, generationConditions) {
   const acceptanceCriteria = normalizeAcceptanceCriteria(story.acceptanceCriteria);
 
   return {
@@ -94,7 +94,33 @@ function buildAgentContext(story) {
     business_rules: normalizeStringList(story.businessRules),
     existing_test_cases: normalizeExistingTestCases(story.existingTestCases),
     linked_defects: normalizeStringList(story.linkedDefects),
-    related_issues: normalizeStringList(story.relatedIssues)
+    related_issues: normalizeStringList(story.relatedIssues),
+    supplemental_context: normalizeSupplementalContext(supplementalContext),
+    generation_conditions: normalizeGenerationConditions(generationConditions)
+  };
+}
+
+function normalizeSupplementalContext(supplementalContext) {
+  const sourceType = String(supplementalContext?.source_type ?? "NONE").toUpperCase();
+
+  if (!["HTML", "AUDIO", "FILE"].includes(sourceType)) {
+    return { source_type: "NONE" };
+  }
+
+  return {
+    source_type: sourceType,
+    file_name: stringOrNull(supplementalContext.file_name),
+    mime_type: stringOrNull(supplementalContext.mime_type),
+    content_base64: supplementalContext.content_base64 || null,
+    raw_html: supplementalContext.raw_html || null
+  };
+}
+
+function normalizeGenerationConditions(generationConditions) {
+  return {
+    positive_test_cases: generationConditions?.positive_test_cases !== false,
+    negative_test_cases: generationConditions?.negative_test_cases !== false,
+    boundary_conditions: generationConditions?.boundary_conditions !== false
   };
 }
 

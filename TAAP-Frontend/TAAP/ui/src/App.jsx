@@ -62,7 +62,15 @@ function BlankWorkspace({ roleId, selectedSection, homeData, homeError, isHomeLo
   }
 
   if (selectedSection?.id === "test-design") {
-    return <TestDesign selectedRequirements={testDesignSelection?.requirements} selectedSource={testDesignSelection?.source} onPrepareTestData={() => onSectionOpen("test-data-envs")} />;
+    return (
+      <TestDesign
+        selectedRequirements={testDesignSelection?.requirements}
+        selectedSource={testDesignSelection?.source}
+        supplementalContext={testDesignSelection?.supplementalContext}
+        generationConditions={testDesignSelection?.generationConditions}
+        onPrepareTestData={() => onSectionOpen("test-data-envs")}
+      />
+    );
   }
 
   if (selectedSection?.id === "test-data-envs") {
@@ -209,9 +217,9 @@ export default function App() {
     setSelectedSection(page.section);
   }
 
-  async function handleCreateTestCases(requirements, source) {
+  async function handleCreateTestCases(requirements, source, supplementalContext, generationConditions) {
     if (!requirements?.length) return;
-    setTestDesignSelection({ requirements, source });
+    setTestDesignSelection({ requirements, source, supplementalContext, generationConditions });
     await handleOpenSection("test-design");
   }
 
